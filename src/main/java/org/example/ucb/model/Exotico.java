@@ -7,7 +7,7 @@ public class Exotico extends Animal {
 
     public Exotico(int id, String nome,String porte, int idade, String especie, String rfid, Dono dono) {
         super(id, nome, porte, idade, especie, dono);
-        this.rfidex = rfid;
+        this.rfidex = rfidex;
         this.notaFiscal = notaFiscal;
     }
 
