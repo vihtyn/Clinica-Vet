@@ -8,12 +8,14 @@ public class Certificacao {
     private Date DataObtencao;
     private String InstituicaoCertificadora;
     private Veterinario veterinario;
+    private Especialidade especialidade;
 
-    public Certificacao(int NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario) {
+    public Certificacao(int NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario, Especialidade especialidade) {
         this.NumeroRegistro = NumeroRegistro;
         this.DataObtencao = DataObtencao;
         this.InstituicaoCertificadora = InstituicaoCertificadora;
         this.veterinario = veterinario;
+        this.especialidade = epecialidade;
     }
 
     public int getNumeroRegistro() {
@@ -28,7 +30,7 @@ public class Certificacao {
     public void setDataObtencao(Date DataObtencao) {
         this.DataObtencao = DataObtencao;
     }
-    public String getInstituicaoCertificadora() {
+    public String setInstituicaoCertificadora() {
         return InstituicaoCertificadora;
     }
     public void getInstituicaoCertificadora(String InstituicaoCertificadora) {
@@ -39,5 +41,11 @@ public class Certificacao {
     }
     public void setVeterinario(Veterinario veterinario) {
         this.veterinario = veterinario;
+    }
+    public Especialidade getEspecialidade() {
+        return especialidade;
+    }
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
     }
 }
