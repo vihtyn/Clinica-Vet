@@ -9,4 +9,7 @@ public interface RepositorioDeAnimal {
     Animal BuscarPorId(int id);
     List<Animal> ListarTodos();
     List<Animal> BuscarPorDono(String CpfDono);
+    boolean deletarAnimal(int id);
+    void atualizar(Animal animal);
+
 }

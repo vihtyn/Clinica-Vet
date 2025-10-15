@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86cf361c-e088-429f-9f8d-71bb72083e6f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/cli/SistemaClinicaVet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/POO_clinica_vet/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/POO_clinica_vet/src/main/java/org/example/ucb/cli/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/POO_clinica_vet/src/main/java/org/example/ucb/control/ClinicaVetServices.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/POO_clinica_vet/src/main/java/org/example/ucb/model/ClinicaVet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/POO_clinica_vet/target/classes/org/example/ucb/cli/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/POO_clinica_vet/target/classes/org/example/ucb/control/ClinicaVetServices.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/POO_clinica_vet/target/classes/org/example/ucb/model/ClinicaVet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/cli/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/ClinicaVetServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeAnimal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/ConexãoMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/ConexãoMySQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +15,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>

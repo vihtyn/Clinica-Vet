@@ -8,4 +8,6 @@ public interface RepositorioDeVeterinario {
     Veterinario BuscarVet (String crmv);
     List<Veterinario> ListarVet();
     List<Veterinario> BuscarPorCertificacao(int numeroregistro);
+    void atualizar(Veterinario veterinario);
+    boolean deletarVet(String crmv)
 }
