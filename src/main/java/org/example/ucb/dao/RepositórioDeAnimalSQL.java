@@ -5,7 +5,7 @@ import org.example.ucb.model.Animal;
 
 
 public class RepositórioDeAnimalSQL implements RepositorioDeAnimal {
-    void salvar(Animal animal){
+    public void salvar(Animal animal){
 
     }
 }

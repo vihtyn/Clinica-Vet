@@ -1,8 +1,13 @@
 package org.example.ucb.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 public class Veterinario {
+
+    private List<Consulta> historicoConsultas;
+
     private String crmv;
     private String nome;
     private int idade;
@@ -10,12 +15,21 @@ public class Veterinario {
     private Consulta consulta;
 
 
-    public Veterinario(String crmv, String nome, int idade,  Date dataGraduacao, Consulta consulta) {
+    public Veterinario(String crmv, String nome, int idade,  Date dataGraduacao) {
         this.crmv = crmv;
         this.nome = nome;
         this.idade = idade;
         this.dataGraduacao = dataGraduacao;
-        this.consulta = consulta;
+        this.historicoConsultas = new ArrayList<>();
+    }
+
+    public Veterinario(String crmv, String nome, int idade, Date dataGraduacao, Consulta consultaInicial) {
+        this.crmv = crmv;
+        this.nome = nome;
+        this.idade = idade;
+        this.dataGraduacao = dataGraduacao;
+        this.historicoConsultas = new ArrayList<>();
+        this.historicoConsultas.add(consultaInicial);
     }
 
     public String getCrmv() {
