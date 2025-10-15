@@ -7,7 +7,7 @@ public interface RepositorioDeEspecialidade {
     void salvar(Especialidade especialidade);
     Especialidade BuscarEspecialidade(int id);
     List<Especialidade> ListarEspecialidade();
-    List<Especialidade> BuscarEspPorVet(int crmv);
+    List<Especialidade> BuscarEspPorVet(String crmv);
     void atualizarEspecialidade(Especialidade especialidade);
     boolean deletarEspecialidade(int id);
 }
