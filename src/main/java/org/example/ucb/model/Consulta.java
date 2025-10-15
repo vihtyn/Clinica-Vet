@@ -6,14 +6,12 @@ public class Consulta {
     private String diagnostico;
     private Animal animal;
     private Veterinario veterinario;
-    private Tratamento tratamento;
 
-    public Consulta(int id, String diagnostico, Animal animal, Veterinario veterinario,Tratamento tratamento) {
+    public Consulta(int id, String diagnostico, Animal animal, Veterinario veterinario) {
         this.id = id;
         this.diagnostico = diagnostico;
         this.animal = animal;
         this.veterinario = veterinario;
-        this.tratamento = tratamento;
     }
 
     public int getid(){
@@ -39,11 +37,5 @@ public class Consulta {
     }
     public void setveterinario(Veterinario veterinario){
         this.veterinario = veterinario;
-    }
-    public Tratamento gettratamento(){
-        return tratamento;
-    }
-    public void settratamento(Tratamento tratamento){
-        this.tratamento = tratamento;
     }
 }
