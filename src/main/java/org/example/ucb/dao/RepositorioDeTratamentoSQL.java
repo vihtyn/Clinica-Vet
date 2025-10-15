@@ -1,11 +1,67 @@
 package org.example.ucb.dao;
 
-import org.example.ucb.control.RepositorioDeAnimal;
-import org.example.ucb.model.Animal;
+import org.example.ucb.control.RepositorioDeTratamento;
+import org.example.ucb.model.Tratamento;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
+
+    private final ConexaoBD conexaoBD;
+
+    public RepositorioDeTratamentoSQL() {
+        this.conexaoBD = new ConexãoMySQL();
+    }
+
+    @Override
+    public void salvar(Tratamento tratamento) {
+
+        String sql = "INSERT INTO tratamento (antibiotico, id_consulta, descricao_tratamento) VALUES (?, ?, ?)";
 
 
-public class RepositórioDeAnimalSQL implements RepositorioDeAnimal {
-    void salvar(Animal animal){
+        Connection conexao = null;
+        PreparedStatement stmt = null;
 
+        try {
+    
+            conexao = conexaoBD.obterConexao();
+
+     
+            stmt = conexao.prepareStatement(sql);
+
+            stmt.setBoolean(1, tratamento.isAntibiotico());        
+            stmt.setInt(2, tratamento.getConsulta().getid());     
+            stmt.setString(3, tratamento.getDescricao());         
+
+            stmt.executeUpdate();
+
+            System.out.println("Tratamento salvo com sucesso!");
+
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar tratamento: " + e.getMessage());
+        
+        } finally {
+         
+            try {
+                if (stmt != null) stmt.close();
+                if (conexao != null) conexaoBD.fecharConexao(conexao);
+            } catch (SQLException e) {
+                System.err.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public Tratamento BuscarTratamento(int id) {
+        return null; 
+    }
+
+    @Override
+    public List<Tratamento> BuscarPorConsulta(int idConsulta) {
+        return null;
     }
 }
