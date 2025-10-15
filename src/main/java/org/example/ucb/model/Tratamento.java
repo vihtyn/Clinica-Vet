@@ -5,13 +5,11 @@ public class Tratamento {
     private int id;
     private String descricao;
     private boolean antibiotico;
-    private Consulta consulta;
 
-    public Tratamento( int id, String descricao, boolean antibiotico, Consulta consulta) {
+    public Tratamento( int id, String descricao, boolean antibiotico) {
         this.id = id;
         this.descricao = descricao;
         this.antibiotico = antibiotico;
-        this.consulta = consulta;
     }
 
     public int getId() {
@@ -31,11 +29,5 @@ public class Tratamento {
     }
     public void setAntibiotico(boolean antibiotico) {
         this.antibiotico = antibiotico;
-    }
-    public Consulta getConsulta() {
-        return consulta;
-    }
-    public void setConsulta(Consulta consulta) {
-        this.consulta = consulta;
     }
 }
