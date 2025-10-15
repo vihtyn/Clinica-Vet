@@ -4,10 +4,13 @@ import java.util.Scanner;
 import java.util.List;
 import org.example.ucb.control.RepositorioDeTratamento; //partedovitor
 import org.example.ucb.dao.RepositorioDeTratamentoSQL; //partedovitor
+import org.example.ucb.control.RepositorioDeEspecialidade; //partedovitor2
+import org.example.ucb.dao.RepositorioDeEspecialidadeSQL; //partedovitor2
 
 public class SistemaClinicaVet {
     private static final Scanner entrada = new Scanner(System.in);
     private static RepositorioDeTratamento repositorioDeTratamento; //partedovitor
+    private static RepositorioDeEspecialidade repositorioDeEspecialidade;  //partedovitor2
     public static void main(String[] args) {
 
         try{
@@ -20,6 +23,7 @@ public class SistemaClinicaVet {
         }
         private static void configurarDependencias(){
         repositorioDeTratamento = new RepositorioDeTratamentoSQL(); //partedovitor
+        repositorioDeEspecialidade = new RepositorioDeEspecialidadeSQL(); //partedovitor2
         }
 
         // PARTE DO VÍTOR - TRATAMENTOS;
@@ -112,8 +116,94 @@ public class SistemaClinicaVet {
                     System.out.println("Opção inválida! Tente novamente.");
                     break;
             }
+            
+        }
+
+        // PARTE DO VÍTOR - ESPECIALIDADES;
+        private static void exibirMenuEspecialidades() {
+        boolean sair = false;
+        while (!sair) {
+            System.out.println("\n--- Menu de Gerenciamento de Especialidades ---");
+            System.out.println("1. Cadastrar nova especialidade");
+            System.out.println("2. Buscar especialidade por ID");
+            System.out.println("3. Listar todas as especialidades");
+            System.out.println("4. Listar especialidades de um veterinário");
+            System.out.println("0. Voltar ao menu principal");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = entrada.nextInt();
+            entrada.nextLine(); // Limpa o buffer
+
+            switch (opcao) {
+                switch (opcao) {
+                case 1:
+            
+                    System.out.println("\n--- Cadastrar Nova Especialidade ---");
+                    System.out.print("Digite o nome da nova especialidade: ");
+                    String nomeEspecialidade = entrada.nextLine();
+
+                    Especialidade novaEspecialidade = new Especialidade(0, nomeEspecialidade);
+
+                    repositorioDeEspecialidade.salvar(novaEspecialidade);
+
+                    break;
+                case 2:
+                    System.out.println("\n--- Buscar Especialidade por ID ---");
+                    System.out.print("Digite o ID da especialidade que deseja buscar: ");
+                    int idParaBuscar = entrada.nextInt();
+                    entrada.nextLine(); // Limpa o buffer
+
+                    Especialidade especialidadeEncontrada = repositorioDeEspecialidade.BuscarEspecialidade(idParaBuscar);
+
+                    if (especialidadeEncontrada != null) {
+
+                        System.out.println("\n--- Especialidade Encontrada ---");
+                        System.out.println("ID: " + especialidadeEncontrada.getId());
+                        System.out.println("Nome: " + especialidadeEncontrada.getNome());
+                        System.out.println("--------------------------------");
+                    } else {
+
+                        System.out.println("\nEspecialidade com o ID " + idParaBuscar + " não encontrada.");
+                    }
+                    break;
+                case 3:
+                    System.out.println("\n--- Lista de Todas as Especialidades ---");
+                    List<Especialidade> todasAsEspecialidades = repositorioDeEspecialidade.ListarEspecialidade();
+
+                    if (todasAsEspecialidades != null && !todasAsEspecialidades.isEmpty()) {
+                        for (Especialidade especialidade : todasAsEspecialidades) {
+                            System.out.println("ID: " + especialidade.getId() + " | Nome: " + especialidade.getNome());
+                        }
+                        System.out.println("--------------------------------------");
+                    } else {
+                        System.out.println("\nNenhuma especialidade cadastrada no sistema.");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n--- Listar Especialidades por Veterinário ---");
+                    System.out.print("Digite o CRMV do veterinário (ex: CRMV-DF 12345): ");
+                    String crmvParaBuscar = entrada.nextLine();
+                    List<Especialidade> especialidadesDoVet = repositorioDeEspecialidade.BuscarEspPorVet(crmvParaBuscar);
+
+                    if (especialidadesDoVet != null && !especialidadesDoVet.isEmpty()) {
+                        System.out.println("\n--- Especialidades Encontradas para o CRMV: " + crmvParaBuscar + " ---");
+                        for (Especialidade especialidade : especialidadesDoVet) {
+                            System.out.println("ID: " + especialidade.getId() + " | Nome: " + especialidade.getNome());
+                        }
+                        System.out.println("----------------------------------------------------");
+                    } else {
+                        System.out.println("\nNenhuma especialidade encontrada para o veterinário com o CRMV " + crmvParaBuscar + ".");
+                    }
+                    break;
+                case 0:
+                    sair = true;
+                    System.out.println("Voltando ao menu principal...");
+                    break;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+                    break;
+            }
         }
     }
-
     }
 }
