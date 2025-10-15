@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConexãoMySQL implements ConexaoBD{
+public class ConexaoMySQL implements ConexaoBD{
 
     private static final String URL = "jdbc:mysql://localhost:3306/clinica";
     private static final String USUARIO = "root";

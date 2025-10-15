@@ -11,5 +11,4 @@ public interface RepositorioDeAnimal {
     List<Animal> BuscarPorDono(String CpfDono);
     boolean deletarAnimal(int id);
     void atualizar(Animal animal);
-
 }

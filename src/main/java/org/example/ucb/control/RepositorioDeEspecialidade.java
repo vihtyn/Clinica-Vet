@@ -8,4 +8,6 @@ public interface RepositorioDeEspecialidade {
     Especialidade BuscarEspecialidade(int id);
     List<Especialidade> ListarEspecialidade();
     List<Especialidade> BuscarEspPorVet(int crmv);
+    void atualizarEspecialidade(Especialidade especialidade);
+    boolean deletarEspecialidade(int id);
 }

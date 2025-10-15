@@ -8,4 +8,6 @@ public interface RepositorioDeConsulta {
     Consulta BuscarConsulta(int id);
     List<Consulta> ListarConsulta();
     List<Consulta> BuscarPorAnimal(int id);
+    void atualizarConsulta(Consulta consulta);
+    boolean deletarCertificacao(int id);
 }

@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86cf361c-e088-429f-9f8d-71bb72083e6f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeAnimalSQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeCertificacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeCertificacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeConsulta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeConsulta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeEspecialidade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeEspecialidade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeTratamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeTratamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeVeterinario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeVeterinario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/ConexãoMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/ConexaoMySQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositórioDeAnimalSQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Exotico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Exotico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Pet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Pet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

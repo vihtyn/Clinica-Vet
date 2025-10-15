@@ -6,6 +6,10 @@ public class Pet extends Animal {
 
     private String rfid;
 
+    public Pet(){
+        super();
+    }
+
     public Pet(int id, String nome,String porte, int idade, String especie, String rfid, Dono dono) {
         super(id, nome, porte, idade, especie, dono);
         this.rfid = rfid;
