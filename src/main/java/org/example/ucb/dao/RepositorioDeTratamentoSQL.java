@@ -64,4 +64,102 @@ public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
     public List<Tratamento> BuscarPorConsulta(int idConsulta) {
         return null;
     }
+
+    @Override
+    
+    public Tratamento BuscarTratamento(int id) {
+    
+        String sql = "SELECT * FROM tratamento WHERE id = ?";
+        Connection conexao = null;
+        PreparedStatement stmt = null;
+        ResultSet resultado = null; 
+
+        try {
+
+            conexao = conexaoBD.obterConexao();
+
+            stmt = conexao.prepareStatement(sql);
+
+            stmt.setInt(1, id);
+
+
+            resultado = stmt.executeQuery();
+
+
+            if (resultado.next()) {
+
+                int tratamentoId = resultado.getInt("id");
+                boolean antibiotico = resultado.getBoolean("antibiotico");
+                String descricao = resultado.getString("descricao_tratamento");
+                int idConsulta = resultado.getInt("id_consulta");
+
+
+                Consulta consulta = new Consulta(idConsulta, null, null, null);
+
+
+                return new Tratamento(tratamentoId, descricao, antibiotico, consulta);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar tratamento por ID: " + e.getMessage());
+        
+        } finally {
+
+            try {
+                if (resultado != null) resultado.close();
+                if (stmt != null) stmt.close();
+                if (conexao != null) conexaoBD.fecharConexao(conexao);
+            } catch (SQLException e) {
+                System.err.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+
+        return null;
+    }
+    
+    @Override
+    public List<Tratamento> BuscarPorConsulta(int idConsulta) {
+      
+        String sql = "SELECT * FROM tratamento WHERE id_consulta = ?";
+        Connection conexao = null;
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+      
+        List<Tratamento> tratamentos = new ArrayList<>();
+
+        try {
+            
+            conexao = conexaoBD.obterConexao();
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idConsulta);
+
+            
+            resultado = stmt.executeQuery();
+
+           
+            while (resultado.next()) {
+           
+                int tratamentoId = resultado.getInt("id");
+                boolean antibiotico = resultado.getBoolean("antibiotico");
+                String descricao = resultado.getString("descricao_tratamento");
+
+       
+                Consulta consulta = new Consulta(idConsulta, null, null, null);
+
+              
+                Tratamento tratamento = new Tratamento(tratamentoId, descricao, antibiotico, consulta);
+
+  
+                tratamentos.add(tratamento);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar tratamentos por consulta: " + e.getMessage());
+
+        } finally {
+        
+            try {
+                if (resultado != null) resultado.close();
+                if (stmt != null) stmt.close();
+                if (conexao != null) conexaoBD.
 }
