@@ -148,12 +148,122 @@ public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
             System.err.println("Erro ao buscar tratamentos por consulta: " + e.getMessage());
 
         } finally {
-
             try {
                 if (resultado != null) resultado.close();
                 if (stmt != null) stmt.close();
-                if (conexao != null) conexaoBD.
-            }catch(Exception e){
-                System.out.println("Erro ao ");
+                if (conexao != null) conexaoBD.fecharConexao(conexao); 
+            } catch (SQLException e) { 
+                System.err.println("Erro ao fechar conexão: " + e.getMessage()); 
+            }
+        }
+        return tratamentos; 
+    } 
+    
+    @Override
+    public List<Tratamento> ListarTratamento() {
+        String sql = "SELECT * FROM tratamento";
+        Connection conexao = null;
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Tratamento> tratamentos = new ArrayList<>();
+
+        try {
+            conexao = conexaoBD.obterConexao();
+            stmt = conexao.prepareStatement(sql);
+            resultado = stmt.executeQuery();
+
+            while (resultado.next()) {
+                int tratamentoId = resultado.getInt("id");
+                boolean antibiotico = resultado.getBoolean("antibiotico");
+                String descricao = resultado.getString("descricao_tratamento");
+                int idConsulta = resultado.getInt("id_consulta");
+
+                Consulta consulta = new Consulta(idConsulta, null, null, null);
+                Tratamento tratamento = new Tratamento(tratamentoId, descricao, antibiotico, consulta);
+                tratamentos.add(tratamento);
             }
 
+        } catch (Exception e) {
+            System.err.println("Erro ao listar tratamentos: " + e.getMessage());
+        
+        } finally {
+            try {
+                if (resultado != null) resultado.close();
+                if (stmt != null) stmt.close();
+                if (conexao != null) conexaoBD.fecharConexao(conexao);
+            } catch (SQLException e) {
+                System.err.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+        return tratamentos;
+    }
+
+    @Override
+    public void atualizarTratamento(Tratamento tratamento) {
+        String sql = "UPDATE tratamento SET antibiotico = ?, id_consulta = ?, descricao_tratamento = ? WHERE id = ?";
+        Connection conexao = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conexao = conexaoBD.obterConexao();
+            stmt = conexao.prepareStatement(sql);
+
+            stmt.setBoolean(1, tratamento.isAntibiotico());
+            stmt.setInt(2, tratamento.getConsulta().getid());
+            stmt.setString(3, tratamento.getDescricao());
+            stmt.setInt(4, tratamento.getId()); 
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Tratamento atualizado com sucesso!");
+            } else {
+                System.err.println("Nenhum tratamento encontrado com o ID " + tratamento.getId() + " para atualizar.");
+            }
+
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar tratamento: " + e.getMessage());
+        
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conexao != null) conexaoBD.fecharConexao(conexao);
+            } catch (SQLException e) {
+                System.err.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+    }
+    @Override
+    public boolean deletarTratamento(int id) {
+        String sql = "DELETE FROM tratamento WHERE id = ?";
+        Connection conexao = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conexao = conexaoBD.obterConexao();
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            int linhasAfetadas = stmt.executeUpdate();
+            
+            if (linhasAfetadas > 0) {
+                System.out.println("Tratamento ID " + id + " deletado com sucesso.");
+            } else {
+                System.err.println("Nenhum tratamento encontrado com o ID " + id + " para deletar.");
+            }
+            
+            return linhasAfetadas > 0;
+
+        } catch (Exception e) {
+            System.err.println("Erro ao deletar tratamento: " + e.getMessage());
+            return false;
+        
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conexao != null) conexaoBD.fecharConexao(conexao);
+            } catch (SQLException e) {
+                System.err.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+    }
