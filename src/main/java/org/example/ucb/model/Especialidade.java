@@ -3,12 +3,14 @@ package org.example.ucb.model;
 public class Especialidade {
     private int id;
     private String nome;
-    private Certificacao certificacao;
 
-    public Especialidade(int  id, String nome, Certificacao certificacao) {
+    public Especialidade() {
+
+    }
+
+    public Especialidade(int id, String nome){
         this.id = id;
         this.nome = nome;
-        this.certificacao = certificacao;
     }
 
     public int  getId() {

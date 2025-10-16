@@ -1,7 +1,5 @@
 package org.example.ucb.dao;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
-import com.sun.source.tree.ArrayAccessTree;
 import org.example.ucb.control.RepositorioDeAnimal;
 import org.example.ucb.control.RepositorioDeDono;
 import org.example.ucb.model.Dono;
@@ -156,7 +154,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
     @Override
     public List<Animal> BuscarPorDono(String CpfDono) {
         List<Animal> animaisDoDono = new ArrayList<>();
-        String sql = "SELECT a.*, p.RFID, e.NotaFiscal, e.RFIDEX FROM Animal a LEFT JOIN Pet p ON a.ID = p.animal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID WHERE a.CPF_dono = ?"
+        String sql = "SELECT a.*, p.RFID, e.NotaFiscal, e.RFIDEX FROM Animal a LEFT JOIN Pet p ON a.ID = p.animal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID WHERE a.CPF_dono = ?";
 
                 try (Connection conexao = new ConexaoMySQL().obterConexao();
                      PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -259,7 +257,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
                 String sqlExotico = "UPDATE Exotico SET RFIDEX = ? WHERE animal_ID = ?";
 
                 try(PreparedStatement stmtExotico = conexao.prepareStatement(sqlExotico)) {
-                    stmtExotico.setString(1, ((Exotico) anima).getNotaFiscal());
+                    stmtExotico.setString(1, ((Exotico) animal).getNotaFiscal());
                     stmtExotico.setString(2, ((Exotico) animal).getRfidex());
                     stmtExotico.setInt(3, animal.getId());
 

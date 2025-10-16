@@ -6,6 +6,10 @@ import org.example.ucb.control.RepositorioDeTratamento; //partedovitor
 import org.example.ucb.dao.RepositorioDeTratamentoSQL; //partedovitor
 import org.example.ucb.control.RepositorioDeEspecialidade; //partedovitor2
 import org.example.ucb.dao.RepositorioDeEspecialidadeSQL; //partedovitor2
+import org.example.ucb.model.Especialidade;
+import org.example.ucb.model.Consulta;
+import org.example.ucb.model.Tratamento;
+
 
 public class SistemaClinicaVet {
     private static final Scanner entrada = new Scanner(System.in);
@@ -46,7 +50,7 @@ public class SistemaClinicaVet {
 
                     System.out.print("Digite o ID da consulta à qual este tratamento pertence: ");
                     int idConsulta = entrada.nextInt();
-                    entrada.nextLine(); 
+                    entrada.nextLine();
 
                     System.out.print("Digite a descrição do tratamento: ");
                     String descricao = entrada.nextLine();
@@ -94,7 +98,7 @@ public class SistemaClinicaVet {
 
                     if (tratamentosDaConsulta != null && !tratamentosDaConsulta.isEmpty()) {
                         System.out.println("\n--- Tratamentos Encontrados para a Consulta ID: " + idConsultaParaListar + " ---");
-  
+
                         for (Tratamento tratamento : tratamentosDaConsulta) {
                             System.out.println("-----------------------------");
                             System.out.println("ID do Tratamento: " + tratamento.getId());
@@ -116,8 +120,8 @@ public class SistemaClinicaVet {
                     System.out.println("Opção inválida! Tente novamente.");
                     break;
             }
-            
         }
+    }
 
         // PARTE DO VÍTOR - ESPECIALIDADES;
         private static void exibirMenuEspecialidades() {
@@ -133,8 +137,6 @@ public class SistemaClinicaVet {
 
             int opcao = entrada.nextInt();
             entrada.nextLine(); // Limpa o buffer
-
-            switch (opcao) {
                 switch (opcao) {
                 case 1:
             
