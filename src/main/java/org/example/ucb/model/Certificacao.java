@@ -8,6 +8,11 @@ public class Certificacao {
     private Date DataObtencao;
     private String InstituicaoCertificadora;
     private Veterinario veterinario;
+    private Especialidade especialidade;
+
+    public Certificacao(){
+
+    }
 
     public Certificacao(int NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario) {
         this.NumeroRegistro = NumeroRegistro;

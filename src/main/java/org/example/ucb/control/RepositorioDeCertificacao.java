@@ -8,6 +8,6 @@ public interface RepositorioDeCertificacao {
     Certificacao BuscarNumeroRegistro(int numeroregistro);
     List<Certificacao> ListarCertificacao();
     List<Certificacao> BuscarPorVet(String crmv);
-    void
+    void deletarCertificacao(int numeroRegistro);
 
 }

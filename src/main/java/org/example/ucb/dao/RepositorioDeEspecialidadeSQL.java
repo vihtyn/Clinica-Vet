@@ -52,7 +52,7 @@ public class RepositorioDeEspecialidadeSQL implements RepositorioDeEspecialidade
     @Override
     public Especialidade BuscarEspecialidade(int id) {
 
-        String sql = "SELECT * FROM Especialidade WHERE IDescpecialidade = ?";
+        String sql = "SELECT * FROM Especialidade WHERE IDEspecialidade = ?";
         Connection conexao = null;
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -159,5 +159,43 @@ public class RepositorioDeEspecialidadeSQL implements RepositorioDeEspecialidade
             }
         }
         return especialidades;
+    }
+
+    @Override
+    public void atualizarEspecialidade(Especialidade especialidade) {
+        String sql = "UPDATE Especialidade SET nome = ? WHERE IDespecialidade = ?";
+
+        try (Connection conexao = new ConexaoMySQL().obterConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setString(1, especialidade.getNome());
+            stmt.setInt(2, especialidade.getId());
+
+            stmt.executeUpdate();
+
+            System.out.println("Especialidade ID : " + especialidade.getId() + " atualizada com sucesso!!");
+
+        } catch (Exception e) {
+            System.err.println("Falha ao atualizar especialidade: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean deletarEspecialidade(int id) {
+        String sql = "DELETE FROM Especialidade WHERE IDespecialidade = ?";
+
+        try (Connection conexao = new ConexaoMySQL().obterConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            return linhasAfetadas > 0;
+
+        } catch (Exception e) {
+            System.err.println("Falha ao deletar especialidade: " + e.getMessage());
+            return false;
+        }
     }
 }
