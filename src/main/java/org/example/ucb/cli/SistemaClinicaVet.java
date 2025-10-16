@@ -4,11 +4,15 @@ import java.util.Scanner;
 import java.util.List;
 import org.example.ucb.control.RepositorioDeTratamento; //partedovitor
 import org.example.ucb.dao.RepositorioDeTratamentoSQL; //partedovitor
+import org.example.ucb.model.Tratamento; //partedovitor
 import org.example.ucb.control.RepositorioDeEspecialidade; //partedovitor2
 import org.example.ucb.dao.RepositorioDeEspecialidadeSQL; //partedovitor2
-import org.example.ucb.model.Especialidade;
+import org.example.ucb.model.Especialidade; //partedovitor2
+import org.example.ucb.control.RepositorioDeAnimal; //partedorenan
+import org.example.ucb.dao.RepositorioDeAnimalSQL; //partedorenan
+import org.example.ucb.model.Animal; //partedorenan
 import org.example.ucb.model.Consulta;
-import org.example.ucb.model.Tratamento;
+
 
 
 public class SistemaClinicaVet {
@@ -72,7 +76,6 @@ public class SistemaClinicaVet {
                     System.out.print("Digite o ID do tratamento que deseja buscar: ");
                     int idParaBuscar = entrada.nextInt();
                     entrada.nextLine(); // Limpa o buffer
-.
                     Tratamento tratamentoEncontrado = repositorioDeTratamento.BuscarTratamento(idParaBuscar);
 
                     if (tratamentoEncontrado != null) {
@@ -207,5 +210,12 @@ public class SistemaClinicaVet {
             }
         }
     }
+        //PARTE DO RENAN - ANIMAL;
+        private static void exibirMenuAnimais(){
+        boolean sair = false;
+        while (!sair){
+            
+        }
+            
     }
 }
