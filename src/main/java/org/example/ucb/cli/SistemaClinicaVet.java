@@ -28,97 +28,160 @@ public class SistemaClinicaVet {
 
         // PARTE DO VÍTOR - TRATAMENTOS;
         private static void exibirMenuTratamentos() {
-        boolean sair = false;
-        while (!sair) {
-            System.out.println("\n--- Menu de Gerenciamento de Tratamentos ---");
-            System.out.println("1. Adicionar novo tratamento a uma consulta");
-            System.out.println("2. Buscar tratamento por ID");
-            System.out.println("3. Listar tratamentos de uma consulta");
-            System.out.println("0. Voltar ao menu principal");
-            System.out.print("Escolha uma opção: ");
+            boolean sair = false;
+            while (!sair) {
+                System.out.println("\n--- Menu de Gerenciamento de Tratamentos ---");
+                System.out.println("1. Adicionar novo tratamento a uma consulta");
+                System.out.println("2. Buscar tratamento por ID");
+                System.out.println("3. Listar tratamentos de uma consulta");
+                System.out.println("4. Listar TODOS os tratamentos"); 
+                System.out.println("5. Atualizar um tratamento"); 
+                System.out.println("6. Deletar um tratamento"); 
+                System.out.println("0. Voltar ao menu principal");
+                System.out.print("Escolha uma opção: ");
 
-            int opcao = entrada.nextInt();
-            entrada.nextLine(); // Limpa o buffer do scanner
+                int opcao = entrada.nextInt();
+                entrada.nextLine(); 
 
-            switch (opcao) {
-                case 1:
-                     System.out.println("\n--- Adicionar Novo Tratamento ---");
+                switch (opcao) {
+                    case 1: 
+                        System.out.println("\n--- Adicionar Novo Tratamento ---");
 
-                    System.out.print("Digite o ID da consulta à qual este tratamento pertence: ");
-                    int idConsulta = entrada.nextInt();
-                    entrada.nextLine(); 
+                        System.out.print("Digite o ID da consulta à qual este tratamento pertence: ");
+                        int idConsulta = entrada.nextInt();
+                        entrada.nextLine(); 
 
-                    System.out.print("Digite a descrição do tratamento: ");
-                    String descricao = entrada.nextLine();
+                        System.out.print("Digite a descrição do tratamento: ");
+                        String descricao = entrada.nextLine();
 
-                    System.out.print("O tratamento utiliza antibiótico? (s/n): ");
-                    String usaAntibioticoInput = entrada.nextLine();
-                    boolean usaAntibiotico = usaAntibioticoInput.equalsIgnoreCase("s");
+                        System.out.print("O tratamento utiliza antibiótico? (s/n): ");
+                        String usaAntibioticoInput = entrada.nextLine();
+                        boolean usaAntibiotico = usaAntibioticoInput.equalsIgnoreCase("s");
 
-                    Consulta consulta = new Consulta(idConsulta, null, null, null);
+                        Consulta consulta = new Consulta(idConsulta, null, null, null); 
+                        Tratamento novoTratamento = new Tratamento(0, descricao, usaAntibiotico, consulta); 
 
+                        repositorioDeTratamento.salvar(novoTratamento);
 
-                    Tratamento novoTratamento = new Tratamento(0, descricao, usaAntibiotico, consulta);
+                        break;
+                    case 2: 
+                        System.out.println("\n--- Buscar Tratamento por ID ---");
+                        System.out.print("Digite o ID do tratamento que deseja buscar: ");
+                        int idParaBuscar = entrada.nextInt();
+                        entrada.nextLine(); 
 
-                    repositorioDeTratamento.salvar(novoTratamento);
+                        Tratamento tratamentoEncontrado = repositorioDeTratamento.BuscarTratamento(idParaBuscar);
 
-                    break;
-                case 2:
-                    System.out.println("\n--- Buscar Tratamento por ID ---");
-                    System.out.print("Digite o ID do tratamento que deseja buscar: ");
-                    int idParaBuscar = entrada.nextInt();
-                    entrada.nextLine(); // Limpa o buffer
-.
-                    Tratamento tratamentoEncontrado = repositorioDeTratamento.BuscarTratamento(idParaBuscar);
-
-                    if (tratamentoEncontrado != null) {
-
-                        System.out.println("\n--- Tratamento Encontrado ---");
-                        System.out.println("ID do Tratamento: " + tratamentoEncontrado.getId());
-                        System.out.println("ID da Consulta Associada: " + tratamentoEncontrado.getConsulta().getid());
-                        System.out.println("Descrição: " + tratamentoEncontrado.getDescricao());
-                        System.out.println("Usa Antibiótico: " + (tratamentoEncontrado.isAntibiotico() ? "Sim" : "Não"));
-                        System.out.println("-----------------------------");
-                    } else {
-
-                        System.out.println("\nTratamento com o ID " + idParaBuscar + " não encontrado.");
-                    }
-                    break;
-                case 3:
-                    System.out.println("\n--- Listar Tratamentos por Consulta ---");
-                    System.out.print("Digite o ID da consulta para ver os tratamentos associados: ");
-                    int idConsultaParaListar = entrada.nextInt();
-                    entrada.nextLine(); // Limpa o buffer
-
-                    List<Tratamento> tratamentosDaConsulta = repositorioDeTratamento.BuscarPorConsulta(idConsultaParaListar);
-
-                    if (tratamentosDaConsulta != null && !tratamentosDaConsulta.isEmpty()) {
-                        System.out.println("\n--- Tratamentos Encontrados para a Consulta ID: " + idConsultaParaListar + " ---");
-  
-                        for (Tratamento tratamento : tratamentosDaConsulta) {
+                        if (tratamentoEncontrado != null) {
+                            System.out.println("\n--- Tratamento Encontrado ---");
+                            System.out.println("ID do Tratamento: " + tratamentoEncontrado.getId());
+                            System.out.println("ID da Consulta Associada: " + tratamentoEncontrado.getConsulta().getid()); //
+                            System.out.println("Descrição: " + tratamentoEncontrado.getDescricao());
+                            System.out.println("Usa Antibiótico: " + (tratamentoEncontrado.isAntibiotico() ? "Sim" : "Não"));
                             System.out.println("-----------------------------");
-                            System.out.println("ID do Tratamento: " + tratamento.getId());
-                            System.out.println("Descrição: " + tratamento.getDescricao());
-                            System.out.println("Usa Antibiótico: " + (tratamento.isAntibiotico() ? "Sim" : "Não"));
+                        } else {
+                            System.out.println("\nTratamento com o ID " + idParaBuscar + " não encontrado.");
                         }
-                        System.out.println("-----------------------------");
-                    } else {
+                        break;
+                    case 3: 
+                        System.out.println("\n--- Listar Tratamentos por Consulta ---");
+                        System.out.print("Digite o ID da consulta para ver os tratamentos associados: ");
+                        int idConsultaParaListar = entrada.nextInt();
+                        entrada.nextLine(); 
 
-                        System.out.println("\nNenhum tratamento encontrado para a consulta com o ID " + idConsultaParaListar + ".");
-                    }
+                        List<Tratamento> tratamentosDaConsulta = repositorioDeTratamento.BuscarPorConsulta(idConsultaParaListar);
 
-                    break;
-                case 0:
-                    sair = true;
-                    System.out.println("Voltando ao menu principal...");
-                    break;
-                default:
-                    System.out.println("Opção inválida! Tente novamente.");
-                    break;
+                        if (tratamentosDaConsulta != null && !tratamentosDaConsulta.isEmpty()) {
+                            System.out.println("\n--- Tratamentos Encontrados para a Consulta ID: " + idConsultaParaListar + " ---");
+
+                            for (Tratamento tratamento : tratamentosDaConsulta) {
+                                System.out.println("-----------------------------");
+                                System.out.println("ID do Tratamento: " + tratamento.getId());
+                                System.out.println("Descrição: " + tratamento.getDescricao());
+                                System.out.println("Usa Antibiótico: " + (tratamento.isAntibiotico() ? "Sim" : "Não"));
+                            }
+                            System.out.println("-----------------------------");
+                        } else {
+                            System.out.println("\nNenhum tratamento encontrado para a consulta com o ID " + idConsultaParaListar + ".");
+                        }
+                        break;
+                    
+                  
+
+                    case 4:
+                        System.out.println("\n--- Listar Todos os Tratamentos ---");
+                        List<Tratamento> todosTratamentos = repositorioDeTratamento.ListarTratamento();
+
+                        if (todosTratamentos != null && !todosTratamentos.isEmpty()) {
+                            System.out.println("\n--- Total de " + todosTratamentos.size() + " Tratamentos Encontrados ---");
+                            for (Tratamento tratamento : todosTratamentos) {
+                                System.out.println("-----------------------------");
+                                System.out.println("ID do Tratamento: " + tratamento.getId());
+                                System.out.println("ID da Consulta: " + tratamento.getConsulta().getid());
+                                System.out.println("Descrição: " + tratamento.getDescricao());
+                                System.out.println("Usa Antibiótico: " + (tratamento.isAntibiotico() ? "Sim" : "Não"));
+                            }
+                            System.out.println("-----------------------------");
+                        } else {
+                            System.out.println("\nNenhum tratamento cadastrado no sistema.");
+                        }
+                        break;
+
+                    case 5: 
+                        System.out.println("\n--- Atualizar Tratamento ---");
+                        System.out.print("Digite o ID do tratamento que deseja ATUALIZAR: ");
+                        int idParaAtualizar = entrada.nextInt();
+                        entrada.nextLine(); 
+
+                      
+                        Tratamento tratamentoParaAtualizar = repositorioDeTratamento.BuscarTratamento(idParaAtualizar);
+
+                        if (tratamentoParaAtualizar == null) {
+                            System.out.println("Tratamento com ID " + idParaAtualizar + " não encontrado.");
+                            break;
+                        }
+
+                       
+                        System.out.print("Digite a NOVA descrição (Atual: " + tratamentoParaAtualizar.getDescricao() + "): ");
+                        String novaDescricao = entrada.nextLine();
+
+                        System.out.print("O tratamento utiliza antibiótico? (s/n) (Atual: " + (tratamentoParaAtualizar.isAntibiotico() ? "s" : "n") + "): ");
+                        String novoUsaAntibioticoInput = entrada.nextLine();
+                        boolean novoUsaAntibiotico = novoUsaAntibioticoInput.equalsIgnoreCase("s");
+
+                        System.out.print("Digite o NOVO ID da consulta (Atual: " + tratamentoParaAtualizar.getConsulta().getid() + "): ");
+                        int novoIdConsulta = entrada.nextInt();
+                        entrada.nextLine(); 
+
+                        
+                        Consulta novaConsulta = new Consulta(novoIdConsulta, null, null, null);
+                        Tratamento tratamentoAtualizado = new Tratamento(idParaAtualizar, novaDescricao, novoUsaAntibiotico, novaConsulta);
+
+                        
+                        repositorioDeTratamento.atualizarTratamento(tratamentoAtualizado);
+                        
+                        break;
+
+                    case 6: 
+                        System.out.println("\n--- Deletar Tratamento ---");
+                        System.out.print("Digite o ID do tratamento que deseja DELETAR: ");
+                        int idParaDeletar = entrada.nextInt();
+                        entrada.nextLine(); 
+
+                    
+                        repositorioDeTratamento.deletarTratamento(idParaDeletar);
+                        break;
+
+                    case 0:
+                        sair = true;
+                        System.out.println("Voltando ao menu principal...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida! Tente novamente.");
+                        break;
+                }
             }
-            
-        }
-
+        } 
         // PARTE DO VÍTOR - ESPECIALIDADES;
         private static void exibirMenuEspecialidades() {
         boolean sair = false;
