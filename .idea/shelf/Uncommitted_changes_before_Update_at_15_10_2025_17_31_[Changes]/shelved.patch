@@ -1,0 +1,229 @@
+Index: src/main/java/org/example/ucb/model/Exotico.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.ucb.model;\r\n\r\npublic class Exotico extends Animal {\r\n\r\n    private String rfidex;\r\n    private String notaFiscal;\r\n\r\n    public Exotico(int id, String nome,String porte, int idade, String especie, String rfid, Dono dono) {\r\n        super(id, nome, porte, idade, especie, dono);\r\n        this.rfidex = rfid;\r\n        this.notaFiscal = notaFiscal;\r\n    }\r\n\r\n    public String getRfidex() {\r\n        return rfidex;\r\n    }\r\n    public void setRfidex(String rfidex) {\r\n        this.rfidex = rfidex;\r\n    }\r\n    public String getNotaFiscal() {\r\n        return notaFiscal;\r\n    }\r\n    public void setNotaFiscal(String notaFiscal) {\r\n        this.notaFiscal = notaFiscal;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/ucb/model/Exotico.java b/src/main/java/org/example/ucb/model/Exotico.java
+--- a/src/main/java/org/example/ucb/model/Exotico.java	(revision 8fbefee3854c6736b4abcf9cda4ac35c39ec0e44)
++++ b/src/main/java/org/example/ucb/model/Exotico.java	(date 1760559763729)
+@@ -7,7 +7,7 @@
+ 
+     public Exotico(int id, String nome,String porte, int idade, String especie, String rfid, Dono dono) {
+         super(id, nome, porte, idade, especie, dono);
+-        this.rfidex = rfid;
++        this.rfidex = rfidex;
+         this.notaFiscal = notaFiscal;
+     }
+ 
+Index: src/main/java/org/example/ucb/model/Veterinario.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.ucb.model;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Date;\r\n\r\npublic class Veterinario {\r\n\r\n    private List<Consulta> historicoConsultas;\r\n\r\n    private String crmv;\r\n    private String nome;\r\n    private int idade;\r\n    private Date dataGraduacao;\r\n    \r\n    public Veterinario(String crmv, String nome, int idade,  Date dataGraduacao) {\r\n        this.crmv = crmv;\r\n        this.nome = nome;\r\n        this.idade = idade;\r\n        this.dataGraduacao = dataGraduacao;\r\n        this.historicoConsultas = new ArrayList<>();\r\n    }\r\n\r\n    public Veterinario(String crmv, String nome, int idade, Date dataGraduacao, Consulta consultaInicial) {\r\n        this.crmv = crmv;\r\n        this.nome = nome;\r\n        this.idade = idade;\r\n        this.dataGraduacao = dataGraduacao;\r\n        this.historicoConsultas = new ArrayList<>();\r\n        this.historicoConsultas.add(consultaInicial);\r\n    }\r\n\r\n    public String getCrmv() {\r\n        return crmv;\r\n    }\r\n    public void setCrmv(String crmv) {\r\n        this.crmv = crmv;\r\n    }\r\n    public String getNome() {\r\n        return nome;\r\n    }\r\n    public void setNome(String nome) {\r\n        this.nome = nome;\r\n    }\r\n    public int getIdade() {\r\n        return idade;\r\n    }\r\n    public void setIdade(int idade) {\r\n        this.idade = idade;\r\n    }\r\n    public Date getDataGraduacao() {\r\n        return dataGraduacao;\r\n    }\r\n    public void setDataGraduacao(Date dataGraduacao) {\r\n        this.dataGraduacao = dataGraduacao;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/ucb/model/Veterinario.java b/src/main/java/org/example/ucb/model/Veterinario.java
+--- a/src/main/java/org/example/ucb/model/Veterinario.java	(revision 8fbefee3854c6736b4abcf9cda4ac35c39ec0e44)
++++ b/src/main/java/org/example/ucb/model/Veterinario.java	(date 1760560035054)
+@@ -12,7 +12,7 @@
+     private String nome;
+     private int idade;
+     private Date dataGraduacao;
+-    
++
+     public Veterinario(String crmv, String nome, int idade,  Date dataGraduacao) {
+         this.crmv = crmv;
+         this.nome = nome;
+@@ -22,6 +22,8 @@
+     }
+ 
+     public Veterinario(String crmv, String nome, int idade, Date dataGraduacao, Consulta consultaInicial) {
++
++    public Veterinario(String crmv, String nome, int idade,  Date dataGraduacao) {
+         this.crmv = crmv;
+         this.nome = nome;
+         this.idade = idade;
+@@ -30,6 +32,7 @@
+         this.historicoConsultas.add(consultaInicial);
+     }
+ 
++
+     public String getCrmv() {
+         return crmv;
+     }
+@@ -54,4 +57,10 @@
+     public void setDataGraduacao(Date dataGraduacao) {
+         this.dataGraduacao = dataGraduacao;
+     }
++    public Consulta getConsulta() {
++        return consulta;
++    }
++    public void setConsulta(Consulta consulta) {
++        this.consulta = consulta;
++    }
+ }
+Index: src/main/java/org/example/ucb/model/Certificacao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.ucb.model;\r\n\r\nimport java.util.Date;\r\n\r\npublic class Certificacao {\r\n\r\n    private int NumeroRegistro;\r\n    private Date DataObtencao;\r\n    private String InstituicaoCertificadora;\r\n    private Veterinario veterinario;\r\n\r\n    public Certificacao(int NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario) {\r\n        this.NumeroRegistro = NumeroRegistro;\r\n        this.DataObtencao = DataObtencao;\r\n        this.InstituicaoCertificadora = InstituicaoCertificadora;\r\n        this.veterinario = veterinario;\r\n    }\r\n\r\n    public int getNumeroRegistro() {\r\n        return NumeroRegistro;\r\n    }\r\n    public void setNumeroRegistro(int NumeroRegistro) {\r\n        this.NumeroRegistro = NumeroRegistro;\r\n    }\r\n    public Date getDataObtencao() {\r\n        return DataObtencao;\r\n    }\r\n    public void setDataObtencao(Date DataObtencao) {\r\n        this.DataObtencao = DataObtencao;\r\n    }\r\n    public String getInstituicaoCertificadora() {\r\n        return InstituicaoCertificadora;\r\n    }\r\n    public void getInstituicaoCertificadora(String InstituicaoCertificadora) {\r\n        this.InstituicaoCertificadora = InstituicaoCertificadora;\r\n    }\r\n    public Veterinario getVeterinario() {\r\n        return veterinario;\r\n    }\r\n    public void setVeterinario(Veterinario veterinario) {\r\n        this.veterinario = veterinario;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/ucb/model/Certificacao.java b/src/main/java/org/example/ucb/model/Certificacao.java
+--- a/src/main/java/org/example/ucb/model/Certificacao.java	(revision 8fbefee3854c6736b4abcf9cda4ac35c39ec0e44)
++++ b/src/main/java/org/example/ucb/model/Certificacao.java	(date 1760559763722)
+@@ -8,12 +8,14 @@
+     private Date DataObtencao;
+     private String InstituicaoCertificadora;
+     private Veterinario veterinario;
++    private Especialidade especialidade;
+ 
+-    public Certificacao(int NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario) {
++    public Certificacao(int NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario, Especialidade especialidade) {
+         this.NumeroRegistro = NumeroRegistro;
+         this.DataObtencao = DataObtencao;
+         this.InstituicaoCertificadora = InstituicaoCertificadora;
+         this.veterinario = veterinario;
++        this.especialidade = epecialidade;
+     }
+ 
+     public int getNumeroRegistro() {
+@@ -28,7 +30,7 @@
+     public void setDataObtencao(Date DataObtencao) {
+         this.DataObtencao = DataObtencao;
+     }
+-    public String getInstituicaoCertificadora() {
++    public String setInstituicaoCertificadora() {
+         return InstituicaoCertificadora;
+     }
+     public void getInstituicaoCertificadora(String InstituicaoCertificadora) {
+@@ -40,4 +42,10 @@
+     public void setVeterinario(Veterinario veterinario) {
+         this.veterinario = veterinario;
+     }
++    public Especialidade getEspecialidade() {
++        return especialidade;
++    }
++    public void setEspecialidade(Especialidade especialidade) {
++        this.especialidade = especialidade;
++    }
+ }
+Index: src/main/java/org/example/ucb/dao/RepositorioDeTratamento.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/ucb/dao/RepositorioDeTratamento.java b/src/main/java/org/example/ucb/dao/RepositorioDeTratamento.java
+new file mode 100644
+--- /dev/null	(date 1760559763720)
++++ b/src/main/java/org/example/ucb/dao/RepositorioDeTratamento.java	(date 1760559763720)
+@@ -0,0 +1,36 @@
++package org.example.ucb.dao;
++
++import org.example.ucb.control.RepositorioDeTratamento;
++import org.example.ucb.model.Tratamento;
++import java.util.List;
++import java.sql.Connection;
++import java.sql.PreparedStatement;
++import java.sql.ResultSet;
++import java.sql.SQLException;
++import java.util.ArrayList;
++
++public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
++
++    private final ConexaoBD conexaoBD;
++
++    public RepositorioDeTratamentoSQL() {
++        this.conexaoBD = new ConexãoMySQL(); 
++    }
++
++    @Override
++    public void salvar(Tratamento tratamento) {
++    // Implementar a lógica para salvar o tratamento no banco de dados aqui.
++    }
++
++    @Override
++    public Tratamento BuscarTratamento(int id) {
++    // Implementar a lógica para buscar um tratamento pelo seu ID aqui.
++      return null; 
++    }
++
++    @Override
++    public List<Tratamento> BuscarPorConsulta(int idConsulta) {
++    // Implementar a lógica para buscar os tratamentos de uma consulta aqui.
++      return null;
++    }
++}
+Index: src/main/java/org/example/ucb/model/Especialidade.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.ucb.model;\r\n\r\npublic class Especialidade {\r\n    private int id;\r\n    private String nome;\r\n    private Certificacao certificacao;\r\n\r\n    public Especialidade(int  id, String nome, Certificacao certificacao) {\r\n        this.id = id;\r\n        this.nome = nome;\r\n        this.certificacao = certificacao;\r\n    }\r\n\r\n    public int  getId() {\r\n        return id;\r\n    }\r\n    public void setId(int id) {\r\n        this.id = id;\r\n    }\r\n    public String getNome() {\r\n        return nome;\r\n    }\r\n    public void setNome(String nome) {\r\n        this.nome = nome;\r\n    }\r\n    public Certificacao getCertificacao() {\r\n        return certificacao;\r\n    }\r\n    public void setCertificacao(Certificacao certificacao) {\r\n        this.certificacao = certificacao;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/ucb/model/Especialidade.java b/src/main/java/org/example/ucb/model/Especialidade.java
+--- a/src/main/java/org/example/ucb/model/Especialidade.java	(revision 8fbefee3854c6736b4abcf9cda4ac35c39ec0e44)
++++ b/src/main/java/org/example/ucb/model/Especialidade.java	(date 1760559763726)
+@@ -3,12 +3,10 @@
+ public class Especialidade {
+     private int id;
+     private String nome;
+-    private Certificacao certificacao;
+ 
+-    public Especialidade(int  id, String nome, Certificacao certificacao) {
++    public Especialidade(int  id, String nome) {
+         this.id = id;
+         this.nome = nome;
+-        this.certificacao = certificacao;
+     }
+ 
+     public int  getId() {
+@@ -23,10 +21,4 @@
+     public void setNome(String nome) {
+         this.nome = nome;
+     }
+-    public Certificacao getCertificacao() {
+-        return certificacao;
+-    }
+-    public void setCertificacao(Certificacao certificacao) {
+-        this.certificacao = certificacao;
+-    }
+ }
+Index: src/main/java/org/example/ucb/model/Tratamento.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.ucb.model;\r\n\r\npublic class Tratamento {\r\n\r\n    private int id;\r\n    private String descricao;\r\n    private boolean antibiotico;\r\n    private Consulta consulta;\r\n\r\n    public Tratamento( int id, String descricao, boolean antibiotico, Consulta consulta) {\r\n        this.id = id;\r\n        this.descricao = descricao;\r\n        this.antibiotico = antibiotico;\r\n        this.consulta = consulta;\r\n    }\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n    public void setId(int id) {\r\n        this.id = id;\r\n    }\r\n    public String getDescricao() {\r\n        return descricao;\r\n    }\r\n    public void setDescricao(String descricao) {\r\n        this.descricao = descricao;\r\n    }\r\n    public boolean isAntibiotico() {\r\n        return antibiotico;\r\n    }\r\n    public void setAntibiotico(boolean antibiotico) {\r\n        this.antibiotico = antibiotico;\r\n    }\r\n    public Consulta getConsulta() {\r\n        return consulta;\r\n    }\r\n    public void setConsulta(Consulta consulta) {\r\n        this.consulta = consulta;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/ucb/model/Tratamento.java b/src/main/java/org/example/ucb/model/Tratamento.java
+--- a/src/main/java/org/example/ucb/model/Tratamento.java	(revision 8fbefee3854c6736b4abcf9cda4ac35c39ec0e44)
++++ b/src/main/java/org/example/ucb/model/Tratamento.java	(date 1760559763732)
+@@ -5,13 +5,11 @@
+     private int id;
+     private String descricao;
+     private boolean antibiotico;
+-    private Consulta consulta;
+ 
+-    public Tratamento( int id, String descricao, boolean antibiotico, Consulta consulta) {
++    public Tratamento( int id, String descricao, boolean antibiotico) {
+         this.id = id;
+         this.descricao = descricao;
+         this.antibiotico = antibiotico;
+-        this.consulta = consulta;
+     }
+ 
+     public int getId() {
+@@ -32,10 +30,4 @@
+     public void setAntibiotico(boolean antibiotico) {
+         this.antibiotico = antibiotico;
+     }
+-    public Consulta getConsulta() {
+-        return consulta;
+-    }
+-    public void setConsulta(Consulta consulta) {
+-        this.consulta = consulta;
+-    }
+ }

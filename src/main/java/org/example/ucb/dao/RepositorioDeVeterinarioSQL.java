@@ -26,13 +26,9 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
             System.out.println("Veterinário salvo no banco de dados com sucesso!");
 
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             System.err.println("Erro ao salvar veterinário no banco de dados.");
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
-
     }
 
     @Override
@@ -54,11 +50,8 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
                     vetEncontrado = new Veterinario(crmv, nome, idade, dataGraduacao);
                 }
             }
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar veterinário por CRMV.");
-            e.printStackTrace();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.err.println("Erro ao buscar veterinário por CRMV.");
         }
         return vetEncontrado;
     }
@@ -80,12 +73,9 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
 
             veterinarios.add(new Veterinario(crmv, nome, idade, dataGraduacao));
         }
-    } catch (SQLException e) {
-        System.err.println("Erro ao listar veterinários.");
-        e.printStackTrace();
     } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        System.err.println("Erro ao listar veterinários.");
+    }
         return veterinarios;
     }
 
@@ -112,11 +102,8 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
             } else {
                 System.err.println("Nenhum veterinário encontrado com o CRMV informado para atualizar.");
             }
-        } catch (SQLException e) {
-            System.err.println("Erro ao atualizar veterinário.");
-            e.printStackTrace();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.err.println("Erro ao atualizar veterinário.");
         }
     }
 
@@ -131,12 +118,9 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
             int linhasAfetadas = stmt.executeUpdate();
             return linhasAfetadas > 0;
 
-        } catch (SQLException e) {
-            System.err.println("Erro ao deletar veterinário.");
-            e.printStackTrace();
-            return false;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.err.println("Erro ao deletar veterinário.");
+            return false;
         }
     }
 }

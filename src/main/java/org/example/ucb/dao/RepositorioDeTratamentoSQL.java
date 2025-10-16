@@ -1,4 +1,5 @@
 package org.example.ucb.dao;
+import org.example.ucb.model.Consulta;
 
 import org.example.ucb.control.RepositorioDeTratamento;
 import org.example.ucb.model.Tratamento;
@@ -14,7 +15,7 @@ public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
     private final ConexaoBD conexaoBD;
 
     public RepositorioDeTratamentoSQL() {
-        this.conexaoBD = new ConexãoMySQL();
+        this.conexaoBD = new ConexaoMySQL();
     }
 
     @Override
@@ -53,16 +54,6 @@ public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
                 System.err.println("Erro ao fechar conexão: " + e.getMessage());
             }
         }
-    }
-
-    @Override
-    public Tratamento BuscarTratamento(int id) {
-        return null; 
-    }
-
-    @Override
-    public List<Tratamento> BuscarPorConsulta(int idConsulta) {
-        return null;
     }
 
     @Override
@@ -157,9 +148,12 @@ public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
             System.err.println("Erro ao buscar tratamentos por consulta: " + e.getMessage());
 
         } finally {
-        
+
             try {
                 if (resultado != null) resultado.close();
                 if (stmt != null) stmt.close();
                 if (conexao != null) conexaoBD.
-}
+            }catch(Exception e){
+                System.out.println("Erro ao ");
+            }
+
