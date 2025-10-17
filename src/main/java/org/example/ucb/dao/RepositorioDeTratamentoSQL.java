@@ -14,7 +14,7 @@ public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
     private final ConexaoBD conexaoBD;
 
     public RepositorioDeTratamentoSQL() {
-        this.conexaoBD = new ConexãoMySQL();
+        this.conexaoBD = new ConexaoMySQL();
     }
 
     @Override

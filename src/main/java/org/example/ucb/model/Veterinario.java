@@ -12,6 +12,10 @@ public class Veterinario {
     private String nome;
     private int idade;
     private Date dataGraduacao;
+
+    public Veterinario(){
+
+    }
     
     public Veterinario(String crmv, String nome, int idade,  Date dataGraduacao) {
         this.crmv = crmv;

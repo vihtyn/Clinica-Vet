@@ -24,25 +24,40 @@ public class Certificacao {
     public int getNumeroRegistro() {
         return NumeroRegistro;
     }
+
     public void setNumeroRegistro(int NumeroRegistro) {
         this.NumeroRegistro = NumeroRegistro;
     }
+
     public Date getDataObtencao() {
         return DataObtencao;
     }
+
     public void setDataObtencao(Date DataObtencao) {
         this.DataObtencao = DataObtencao;
     }
+
     public String getInstituicaoCertificadora() {
         return InstituicaoCertificadora;
     }
-    public void getInstituicaoCertificadora(String InstituicaoCertificadora) {
+
+    public void setInstituicaoCertificadora(String InstituicaoCertificadora) {
         this.InstituicaoCertificadora = InstituicaoCertificadora;
     }
+
     public Veterinario getVeterinario() {
+
         return veterinario;
     }
+
     public void setVeterinario(Veterinario veterinario) {
         this.veterinario = veterinario;
+    }
+
+    public Especialidade getEspecialidade() {
+        return especialidade;
+    }
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
     }
 }
