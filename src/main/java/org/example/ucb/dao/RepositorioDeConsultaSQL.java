@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
-    private final String BASE_SELECT_SQL =
+
     @Override
     public void salvar(Consulta consulta) {
             String sql = "INSET INTO consulta (diagnostico, id_animal, CRMV_veterinario) VALUES (?, ?, ?)";
@@ -78,7 +78,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
         String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta co INNER JOIN Animal a ON co.id_animal = a.ID INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV";
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
-             PreparedStatement stmt = conexao.createStatement();
+             Statement stmt = conexao.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
@@ -107,6 +107,12 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
         }
         return consultas;
     }
+
+    @Override
+     public List<Consulta> BuscarPorAnimal(int id) {
+
+
+
     List<Consulta> consultas = new ArrayList<>();
     String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta co INNER JOIN Animal a ON co.id_animal = a.ID INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV WHERE co.id_animal = ?";
 
@@ -141,6 +147,9 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
         System.err.println("Erro ao buscar consulta por animal: " + e.getMessage());
     }
         return consultas;
+    }
+@Override
+        public void atualizarConsulta(Consulta consulta) {
 
 
 
@@ -160,6 +169,10 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
     } catch (Exception e) {
         System.err.println("Falaha ao atualizar consulta " + e.getMessage());
     }
+}
+
+@Override
+        public boolean deletarConsulta(int id) {
 
 
 
@@ -176,19 +189,5 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
         return false;
     }
 }
-
-    @Override
-    public List<Consulta> BuscarPorAnimal(int id) {
-        return List.of();
-    }
-
-    @Override
-    public void atualizarConsulta(Consulta consulta) {
-
-    }
-
-    @Override
-    public boolean deletarCertificacao(int id) {
-        return false;
-    }
 }
+
