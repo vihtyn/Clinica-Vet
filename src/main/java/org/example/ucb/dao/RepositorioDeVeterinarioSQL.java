@@ -20,7 +20,7 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
             stmt.setString(1, veterinario.getCrmv());
             stmt.setString(2, veterinario.getNome());
             stmt.setInt(3, veterinario.getIdade());
-            stmt.setDate(4, new java.sql.Date(veterinario.getDataGraduacao().getTime()));
+            stmt.setObject(4, veterinario.getDataGraduacao());
 
             stmt.executeUpdate();
             System.out.println("Veterinário salvo no banco de dados com sucesso!");
@@ -49,7 +49,7 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
                 if (rs.next()) {
                     String nome = rs.getString("nome");
                     int idade = rs.getInt("idade");
-                    java.util.Date dataGraduacao = rs.getDate("dataGraduacao");
+                    java.time.LocalDate dataGraduacao = rs.getDate("dataGraduacao").toLocalDate();
 
                     vetEncontrado = new Veterinario(crmv, nome, idade, dataGraduacao);
                 }
@@ -76,7 +76,7 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
             String crmv = rs.getString("crmv");
             String nome = rs.getString("nome");
             int idade = rs.getInt("idade");
-            java.util.Date dataGraduacao = rs.getDate("dataGraduacao");
+            java.time.LocalDate dataGraduacao = rs.getDate("dataGraduacao").toLocalDate();
 
             veterinarios.add(new Veterinario(crmv, nome, idade, dataGraduacao));
         }
@@ -103,8 +103,8 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
 
             stmt.setString(1, veterinario.getNome());
             stmt.setInt(2, veterinario.getIdade());
-            stmt.setDate(3, new java.sql.Date(veterinario.getDataGraduacao().getTime()));
-            stmt.setString(4, veterinario.getCrmv()); // O WHERE é o último
+            stmt.setObject(3, veterinario.getDataGraduacao());
+            stmt.setString(4, veterinario.getCrmv());
 
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {

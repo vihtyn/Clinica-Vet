@@ -2,7 +2,7 @@ package org.example.ucb.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Veterinario {
 
@@ -11,13 +11,13 @@ public class Veterinario {
     private String crmv;
     private String nome;
     private int idade;
-    private Date dataGraduacao;
+    private LocalDate dataGraduacao;
 
     public Veterinario(){
 
     }
     
-    public Veterinario(String crmv, String nome, int idade,  Date dataGraduacao) {
+    public Veterinario(String crmv, String nome, int idade,  LocalDate dataGraduacao) {
         this.crmv = crmv;
         this.nome = nome;
         this.idade = idade;
@@ -25,7 +25,7 @@ public class Veterinario {
         this.historicoConsultas = new ArrayList<>();
     }
 
-    public Veterinario(String crmv, String nome, int idade, Date dataGraduacao, Consulta consultaInicial) {
+    public Veterinario(String crmv, String nome, int idade, LocalDate dataGraduacao, Consulta consultaInicial) {
         this.crmv = crmv;
         this.nome = nome;
         this.idade = idade;
@@ -52,10 +52,10 @@ public class Veterinario {
     public void setIdade(int idade) {
         this.idade = idade;
     }
-    public Date getDataGraduacao() {
+    public LocalDate getDataGraduacao() {
         return dataGraduacao;
     }
-    public void setDataGraduacao(Date dataGraduacao) {
+    public void setDataGraduacao(LocalDate dataGraduacao) {
         this.dataGraduacao = dataGraduacao;
     }
 }

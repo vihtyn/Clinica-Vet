@@ -1,5 +1,6 @@
 package org.example.ucb.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Dono {
@@ -8,10 +9,10 @@ public class Dono {
     private String CPF;
     private String nome;
     private String endereco;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     //Construtores
-    public Dono(String CPF, Date dataNascimento, String endereco, String nome) {
+    public Dono(String CPF, LocalDate dataNascimento, String endereco, String nome) {
         this.CPF = CPF;
         this.dataNascimento = dataNascimento;
         this.endereco = endereco;
@@ -29,7 +30,7 @@ public class Dono {
     public String getEndereco() {
         return endereco;
     }
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
@@ -43,7 +44,7 @@ public class Dono {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 }
