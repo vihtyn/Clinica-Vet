@@ -14,6 +14,10 @@ public abstract class Animal {
     public Animal(){
 
     }
+
+    public Animal (int id, String nome){
+
+    }
     public Animal(int id, String nome, String porte, int idade, String especie, Dono dono) {
         this.id = id;
         this.nome = nome;

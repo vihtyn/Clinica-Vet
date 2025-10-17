@@ -7,6 +7,10 @@ public class Consulta {
     private Animal animal;
     private Veterinario veterinario;
 
+    public Consulta() {
+
+    }
+
     public Consulta(int id, String diagnostico, Animal animal, Veterinario veterinario) {
         this.id = id;
         this.diagnostico = diagnostico;
