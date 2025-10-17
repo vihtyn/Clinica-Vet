@@ -2,6 +2,7 @@ package org.example.ucb.dao;
 
 import org.example.ucb.control.RepositorioDeTratamento;
 import org.example.ucb.model.Tratamento;
+import org.example.ucb.model.Consulta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,48 +1,263 @@
 package org.example.ucb.cli;
 
-import java.util.Scanner;
+import org.example.ucb.control.*;
+import org.example.ucb.dao.*;
+import org.example.ucb.model.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import org.example.ucb.control.RepositorioDeTratamento; //partedovitor
-import org.example.ucb.dao.RepositorioDeTratamentoSQL; //partedovitor
-import org.example.ucb.model.Tratamento; //partedovitor
-import org.example.ucb.control.RepositorioDeEspecialidade; //partedovitor2
-import org.example.ucb.dao.RepositorioDeEspecialidadeSQL; //partedovitor2
-import org.example.ucb.model.Especialidade; //partedovitor2
-import org.example.ucb.control.RepositorioDeAnimal; //partedorenan
-import org.example.ucb.dao.RepositorioDeAnimalSQL; //partedorenan
-import org.example.ucb.model.Animal; //partedorenan
-import org.example.ucb.control.RepositorioDeDono;
-import org.example.ucb.dao.RepositorioDeDonoSQL;
-import org.example.ucb.model.Pet;
-import org.example.ucb.model.Exotico;
-import org.example.ucb.model.Dono;
-import org.example.ucb.model.Consulta;
-
-
+import java.util.Scanner;
 
 public class SistemaClinicaVet {
-    private static final Scanner entrada = new Scanner(System.in);
-    private static RepositorioDeTratamento repositorioDeTratamento; //partedovitor
-    private static RepositorioDeEspecialidade repositorioDeEspecialidade;  //partedovitor2
-    private static RepositorioDeAnimal repositorioDeAnimal; //partedorenan
-    private static RepositorioDeDono repositorioDeDono;
-    public static void main(String[] args) {
 
-        try{
+    private static final Scanner entrada = new Scanner(System.in);
+    private static RepositorioDeTratamento repositorioDeTratamento;
+    private static RepositorioDeEspecialidade repositorioDeEspecialidade;
+    private static RepositorioDeAnimal repositorioDeAnimal;
+    private static RepositorioDeDono repositorioDeDono;
+    private static RepositorioDeVeterinario repositorioDeVeterinario;
+
+    public static void main(String[] args) {
+        try {
             configurarDependencias();
             exibirMenuPrincipal();
         } catch (Exception e) {
-            System.err.println("Erro ao iniciar o sistema: " + e.getMessage());
+            System.err.println("ERRO FATAL NO SISTEMA: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             entrada.close();
         }
-        private static void configurarDependencias(){
-        repositorioDeTratamento = new RepositorioDeTratamentoSQL(); //partedovitor
-        repositorioDeEspecialidade = new RepositorioDeEspecialidadeSQL(); //partedovitor2
-        repositorioDeAnimal = new RepositorioDeAnimalSQL(); //partedorenan
-        repositorioDeDono = new RepositorioDeDonoSQL();
-        }
+    }
 
+    private static void configurarDependencias() {
+        repositorioDeTratamento = new RepositorioDeTratamentoSQL();
+        repositorioDeEspecialidade = new RepositorioDeEspecialidadeSQL();
+        repositorioDeAnimal = new RepositorioDeAnimalSQL();
+        repositorioDeDono = new RepositorioDeDonoSQL();
+        repositorioDeVeterinario = new RepositorioDeVeterinarioSQL();
+    }
+
+    private static void exibirMenuPrincipal() {
+        boolean sair = false;
+        while (!sair) {
+            System.out.println("\n======= CLÍNICA VETERINÁRIA - MENU PRINCIPAL =======");
+            System.out.println("1. Gerenciar Donos");
+            System.out.println("2. Gerenciar Veterinários");
+            System.out.println("3. Gerenciar Animais");
+            System.out.println("4. Gerenciar Tratamentos");
+            System.out.println("0. Sair do Sistema");
+            System.out.print("Escolha uma área para gerenciar: ");
+
+            int opcao = entrada.nextInt();
+            entrada.nextLine();
+
+            switch (opcao) {
+                case 1: exibirMenuDono(); break;
+                case 2: exibirMenuVeterinario(); break;
+                case 3: exibirMenuAnimais(); break;
+                case 4: exibirMenuTratamentos(); break;
+                case 0: sair = true; System.out.println("Obrigado por usar o sistema!"); break;
+                default: System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
+    }
+
+    //Parte do Victor Caldas - Dono
+    private static void exibirMenuDono() {
+        boolean sair = false;
+        while (!sair) {
+            System.out.println("\n--- Menu de Gerenciamento de Donos ---");
+            System.out.println("1. Cadastrar Novo Dono");
+            System.out.println("2. Listar Todos os Donos");
+            System.out.println("3. Buscar Dono por CPF");
+            System.out.println("4. Atualizar Dono");
+            System.out.println("5. Deletar Dono");
+            System.out.println("0. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = entrada.nextInt();
+            entrada.nextLine();
+            switch (opcao) {
+                case 1:
+                    try {
+                        System.out.println("\n--- Cadastrar Novo Dono ---");
+                        System.out.print("CPF: ");
+                        String cpf = entrada.nextLine();
+                        System.out.print("Nome: ");
+                        String nome = entrada.nextLine();
+                        System.out.print("Endereço: ");
+                        String endereco = entrada.nextLine();
+                        System.out.print("Data de Nascimento (dd/MM/yyyy): ");
+                        String dataTexto = entrada.nextLine();
+                        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        LocalDate dataNascimento = LocalDate.parse(dataTexto, formatador);
+                        Dono novoDono = new Dono(cpf, dataNascimento, endereco, nome);
+                        repositorioDeDono.salvar(novoDono);
+                    } catch (Exception e) {
+                        System.err.println("Erro ao cadastrar dono. Verifique o formato da data.");
+                    }
+                    break;
+                case 2:
+                    List<Dono> donos = repositorioDeDono.ListarDono();
+                    if (donos.isEmpty()) {
+                        System.out.println("Nenhum dono cadastrado.");
+                    } else {
+                        System.out.println("\n--- Lista de Donos Cadastrados ---");
+                        for (Dono d : donos) {
+                            System.out.println("CPF: " + d.getCPF() + " | Nome: " + d.getNome());
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.print("\nDigite o CPF para busca: ");
+                    String cpfBusca = entrada.nextLine();
+                    Dono donoEncontrado = repositorioDeDono.BuscarPorCPF(cpfBusca);
+                    if (donoEncontrado != null) {
+                        System.out.println("--- Dono Encontrado ---");
+                        System.out.println("CPF: " + donoEncontrado.getCPF());
+                        System.out.println("Nome: " + donoEncontrado.getNome());
+                        System.out.println("Endereço: " + donoEncontrado.getEndereco());
+                        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        System.out.println("Data de Nascimento: " + donoEncontrado.getDataNascimento().format(f));
+                    } else {
+                        System.out.println("Dono com CPF " + cpfBusca + " não encontrado.");
+                    }
+                    break;
+                case 4:
+                    System.out.print("\nDigite o CPF do dono que deseja atualizar: ");
+                    String cpfAtt = entrada.nextLine();
+                    Dono donoAtt = repositorioDeDono.BuscarPorCPF(cpfAtt);
+                    if (donoAtt == null) {
+                        System.out.println("Dono não encontrado.");
+                        break;
+                    }
+                    System.out.println("Deixe o campo em branco para não alterar.");
+                    System.out.print("Novo Nome (" + donoAtt.getNome() + "): ");
+                    String nomeAtt = entrada.nextLine();
+                    if (!nomeAtt.trim().isEmpty()) donoAtt.setNome(nomeAtt);
+                    System.out.print("Novo Endereço (" + donoAtt.getEndereco() + "): ");
+                    String enderecoAtt = entrada.nextLine();
+                    if (!enderecoAtt.trim().isEmpty()) donoAtt.setEndereco(enderecoAtt);
+                    repositorioDeDono.atualizar(donoAtt);
+                    System.out.println("Dono atualizado com sucesso!");
+                    break;
+                case 5:
+                    System.out.print("\nDigite o CPF do dono que deseja deletar: ");
+                    String cpfDel = entrada.nextLine();
+                    System.out.print("Tem certeza que deseja deletar? (S/N): ");
+                    if (entrada.nextLine().equalsIgnoreCase("S")) {
+                        if (repositorioDeDono.deletarDono(cpfDel)) {
+                            System.out.println("Dono deletado com sucesso.");
+                        } else {
+                            System.err.println("Erro: Dono não encontrado.");
+                        }
+                    } else {
+                        System.out.println("Operação cancelada.");
+                    }
+                    break;
+                case 0: sair = true; break;
+                default: System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    // Parte do Victor Caldas - Veterinário
+    private static void exibirMenuVeterinario() {
+        boolean sair = false;
+        while (!sair) {
+            System.out.println("\n--- Menu de Gerenciamento de Veterinários ---");
+            System.out.println("1. Cadastrar Novo Veterinário");
+            System.out.println("2. Listar Todos os Veterinários");
+            System.out.println("3. Buscar Veterinário por CRMV");
+            System.out.println("4. Atualizar Veterinário");
+            System.out.println("5. Deletar Veterinário");
+            System.out.println("0. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = entrada.nextInt();
+            entrada.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    try {
+                        System.out.println("\n--- Cadastrar Novo Veterinário ---");
+                        System.out.print("CRMV: ");
+                        String crmv = entrada.nextLine();
+                        System.out.print("Nome: ");
+                        String nome = entrada.nextLine();
+                        System.out.print("Idade: ");
+                        int idade = entrada.nextInt();
+                        entrada.nextLine();
+                        System.out.print("Data de Graduação (dd/MM/yyyy): ");
+                        String dataTexto = entrada.nextLine();
+                        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        LocalDate dataGraduacao = LocalDate.parse(dataTexto, formatador);
+                        Veterinario novoVet = new Veterinario(crmv, nome, idade, dataGraduacao);
+                        repositorioDeVeterinario.salvar(novoVet);
+                    } catch (Exception e) {
+                        System.err.println("Erro ao cadastrar veterinário. Verifique os dados e o formato da data.");
+                    }
+                    break;
+                case 2:
+                    List<Veterinario> veterinarios = repositorioDeVeterinario.ListarVet();
+                    if (veterinarios.isEmpty()) {
+                        System.out.println("Nenhum veterinário cadastrado.");
+                    } else {
+                        System.out.println("\n--- Lista de Veterinários Cadastrados ---");
+                        for (Veterinario vet : veterinarios) {
+                            System.out.println("CRMV: " + vet.getCrmv() + " | Nome: " + vet.getNome());
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.print("\nDigite o CRMV para busca: ");
+                    String crmvBusca = entrada.nextLine();
+                    Veterinario vetEncontrado = repositorioDeVeterinario.BuscarVet(crmvBusca);
+                    if (vetEncontrado != null) {
+                        System.out.println("--- Veterinário Encontrado ---");
+                        System.out.println("CRMV: " + vetEncontrado.getCrmv());
+                        System.out.println("Nome: " + vetEncontrado.getNome());
+                        System.out.println("Idade: " + vetEncontrado.getIdade());
+                        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        System.out.println("Data de Graduação: " + vetEncontrado.getDataGraduacao().format(f));
+                    } else {
+                        System.out.println("Veterinário com CRMV " + crmvBusca + " não encontrado.");
+                    }
+                    break;
+                case 4:
+                    System.out.print("\nDigite o CRMV do veterinário que deseja atualizar: ");
+                    String crmvAtt = entrada.nextLine();
+                    Veterinario vetAtt = repositorioDeVeterinario.BuscarVet(crmvAtt);
+                    if (vetAtt == null) {
+                        System.out.println("Veterinário não encontrado.");
+                        break;
+                    }
+                    System.out.println("Deixe o campo em branco para não alterar.");
+                    System.out.print("Novo Nome (" + vetAtt.getNome() + "): ");
+                    String nomeAtt = entrada.nextLine();
+                    if (!nomeAtt.trim().isEmpty()) vetAtt.setNome(nomeAtt);
+                    repositorioDeVeterinario.atualizar(vetAtt);
+                    System.out.println("Veterinário atualizado com sucesso!");
+                    break;
+                case 5:
+                    System.out.print("\nDigite o CRMV do veterinário a ser deletado: ");
+                    String crmvDel = entrada.nextLine();
+                    System.out.print("Tem certeza que deseja deletar? (S/N): ");
+                    if (entrada.nextLine().equalsIgnoreCase("S")) {
+                        if (repositorioDeVeterinario.deletarVet(crmvDel)) {
+                            System.out.println("Veterinário deletado com sucesso.");
+                        } else {
+                            System.err.println("Erro: Veterinário não encontrado.");
+                        }
+                    } else {
+                        System.out.println("Operação cancelada.");
+                    }
+                    break;
+                case 0: sair = true; break;
+                default: System.out.println("Opção inválida!");
+            }
+        }
+    }
         // PARTE DO VÍTOR - TRATAMENTOS;
         private static void exibirMenuTratamentos() {
         boolean sair = false;
@@ -138,7 +353,7 @@ public class SistemaClinicaVet {
         //PARTE DO RENAN - ANIMAL;
         private static void exibirMenuAnimais() {
         boolean sair = false;
-        
+
         while (!sair) {
             System.out.println("\n--- Menu de Animais ---");
             System.out.println("1. Cadastrar Animal");
@@ -158,21 +373,21 @@ public class SistemaClinicaVet {
                     System.out.println("--- Cadastrar Novo Animal ---");
                     System.out.print("Digite o CPF do Dono: ");
                     String cpfDono = entrada.nextLine();
-                    Dono dono = repositorioDeDono.BuscarPorCPF(cpfDono); 
+                    Dono dono = repositorioDeDono.BuscarPorCPF(cpfDono);
 
                     if (dono == null) {
                         System.out.println("Erro: Dono com CPF " + cpfDono + " não encontrado.");
                         System.out.println("Por favor, cadastre o dono antes de cadastrar o animal.");
                         break;
                     }
-                    System.out.println("Dono encontrado: " + dono.getNome()); 
+                    System.out.println("Dono encontrado: " + dono.getNome());
 
                     System.out.println("Qual o tipo de animal?");
                     System.out.println("1. Pet (Doméstico)");
                     System.out.println("2. Animal Exótico");
                     System.out.print("Opção: ");
                     int tipo = entrada.nextInt();
-                    entrada.nextLine(); 
+                    entrada.nextLine();
                     System.out.print("Nome: ");
                     String nome = entrada.nextLine();
                     System.out.print("Espécie: ");
@@ -187,8 +402,8 @@ public class SistemaClinicaVet {
                     if (tipo == 1) { //Só pra indentificar se é pet ou exótico (Pet = 1, Exótico = 2)
                         System.out.print("RFID (Chip de identificação): ");
                         String rfid = entrada.nextLine();
-                        Pet pet = new Pet(); 
-                        pet.setrfid(rfid); 
+                        Pet pet = new Pet();
+                        pet.setrfid(rfid);
                         novoAnimal = pet;
 
                     } else if (tipo == 2) {
@@ -196,142 +411,142 @@ public class SistemaClinicaVet {
                         String rfidex = entrada.nextLine();
                         System.out.print("Nota Fiscal: ");
                         String notaFiscal = entrada.nextLine();
-                        Exotico exotico = new Exotico(); 
-                        exotico.setRfidex(rfidex); 
-                        exotico.setNotaFiscal(notaFiscal); 
+                        Exotico exotico = new Exotico();
+                        exotico.setRfidex(rfidex);
+                        exotico.setNotaFiscal(notaFiscal);
                         novoAnimal = exotico;
 
                     } else {
                         System.out.println("Tipo inválido. Cadastro cancelado.");
-                        break; 
+                        break;
                     }
-                    novoAnimal.setNome(nome); 
-                    novoAnimal.setEspecie(especie); 
-                    novoAnimal.setPorte(porte); 
-                    novoAnimal.setIdade(idade); 
-                    novoAnimal.setDono(dono); 
-                    repositorioDeAnimal.salvar(novoAnimal); 
+                    novoAnimal.setNome(nome);
+                    novoAnimal.setEspecie(especie);
+                    novoAnimal.setPorte(porte);
+                    novoAnimal.setIdade(idade);
+                    novoAnimal.setDono(dono);
+                    repositorioDeAnimal.salvar(novoAnimal);
                     break;
-                
+
                 case 2:
                     System.out.println("--- Lista de Animais Cadastrados ---");
-                    List<Animal> animais = repositorioDeAnimal.ListarTodos(); 
-                
+                    List<Animal> animais = repositorioDeAnimal.ListarTodos();
+
                     if (animais.isEmpty()) {
                         System.out.println("Nenhum animal cadastrado.");
                     } else {
 
                         for (Animal animal : animais) {
                             System.out.println("--------------------");
-                            System.out.println("ID: " + animal.getId()); 
-                            System.out.println("Nome: " + animal.getNome()); 
-                            System.out.println("Espécie: " + animal.getEspecie()); 
-                            System.out.println("Idade: " + animal.getIdade()); 
-                            
+                            System.out.println("ID: " + animal.getId());
+                            System.out.println("Nome: " + animal.getNome());
+                            System.out.println("Espécie: " + animal.getEspecie());
+                            System.out.println("Idade: " + animal.getIdade());
 
-                            System.out.println("Dono: " + animal.getDono().getNome()); 
+
+                            System.out.println("Dono: " + animal.getDono().getNome());
                             if (animal instanceof Pet) {
                                 System.out.println("Tipo: Pet");
-                                System.out.println("RFID: " + ((Pet) animal).getrfid()); 
+                                System.out.println("RFID: " + ((Pet) animal).getrfid());
                             } else if (animal instanceof Exotico) {
                                 System.out.println("Tipo: Exótico");
-                                System.out.println("RFIDEX: " + ((Exotico) animal).getRfidex()); 
-                                System.out.println("Nota Fiscal: " + ((Exotico) animal).getNotaFiscal()); 
+                                System.out.println("RFIDEX: " + ((Exotico) animal).getRfidex());
+                                System.out.println("Nota Fiscal: " + ((Exotico) animal).getNotaFiscal());
                             }
                         }
                         System.out.println("--------------------");
                     }
                     break;
-                
+
                 case 3:
                     System.out.println("--- Buscar Animal por ID ---");
                     System.out.print("Digite o ID do animal: ");
                     int idBusca = entrada.nextInt();
                     entrada.nextLine(); // Limpa buffer
-                    
-                    Animal animalEncontrado = repositorioDeAnimal.BuscarPorId(idBusca); 
-                    
+
+                    Animal animalEncontrado = repositorioDeAnimal.BuscarPorId(idBusca);
+
                     if (animalEncontrado != null) {
                         System.out.println("Animal encontrado:");
-                        System.out.println("ID: " + animalEncontrado.getId()); 
-                        System.out.println("Nome: " + animalEncontrado.getNome()); 
-                        System.out.println("Espécie: " + animalEncontrado.getEspecie()); 
-                        System.out.println("Idade: " + animalEncontrado.getIdade()); 
-                        
+                        System.out.println("ID: " + animalEncontrado.getId());
+                        System.out.println("Nome: " + animalEncontrado.getNome());
+                        System.out.println("Espécie: " + animalEncontrado.getEspecie());
+                        System.out.println("Idade: " + animalEncontrado.getIdade());
+
                         if (animalEncontrado instanceof Pet) {
                             System.out.println("Tipo: Pet");
-                            System.out.println("RFID: " + ((Pet) animalEncontrado).getrfid()); 
+                            System.out.println("RFID: " + ((Pet) animalEncontrado).getrfid());
                         } else if (animalEncontrado instanceof Exotico) {
                             System.out.println("Tipo: Exótico");
-                            System.out.println("RFIDEX: " + ((Exotico) animalEncontrado).getRfidex()); 
-                            System.out.println("Nota Fiscal: " + ((Exotico) animalEncontrado).getNotaFiscal()); 
+                            System.out.println("RFIDEX: " + ((Exotico) animalEncontrado).getRfidex());
+                            System.out.println("Nota Fiscal: " + ((Exotico) animalEncontrado).getNotaFiscal());
                         }
 
                     } else {
                         System.out.println("Animal com o ID " + idBusca + " não encontrado.");
                     }
                     break;
-                
+
                 case 4:
                     System.out.println("--- Atualizar Animal ---");
                     System.out.print("Digite o ID do animal que deseja atualizar: ");
                     int idAtt = entrada.nextInt();
                     entrada.nextLine(); // Limpar buffer
 
-                    Animal animalAtt = repositorioDeAnimal.BuscarPorId(idAtt); 
+                    Animal animalAtt = repositorioDeAnimal.BuscarPorId(idAtt);
 
                     if (animalAtt == null) {
                         System.out.println("Animal não encontrado.");
                         break;
                     }
-                    System.out.println("Animal encontrado: " + animalAtt.getNome()); 
+                    System.out.println("Animal encontrado: " + animalAtt.getNome());
                     System.out.println("Deixe o campo em branco para não alterar.");
 
-                    System.out.print("Novo Nome (" + animalAtt.getNome() + "): "); 
+                    System.out.print("Novo Nome (" + animalAtt.getNome() + "): ");
                     String nomeAtt = entrada.nextLine();
                     if (!nomeAtt.trim().isEmpty()) {
                         animalAtt.setNome(nomeAtt);
                     }
-                    System.out.print("Nova Espécie (" + animalAtt.getEspecie() + "): "); 
+                    System.out.print("Nova Espécie (" + animalAtt.getEspecie() + "): ");
                     String especieAtt = entrada.nextLine();
                     if (!especieAtt.trim().isEmpty()) {
-                        animalAtt.setEspecie(especieAtt); 
+                        animalAtt.setEspecie(especieAtt);
                     }
-                    
-                    System.out.print("Novo Porte (" + animalAtt.getPorte() + "): "); 
+
+                    System.out.print("Novo Porte (" + animalAtt.getPorte() + "): ");
                     String porteAtt = entrada.nextLine();
                     if (!porteAtt.trim().isEmpty()) {
-                        animalAtt.setPorte(porteAtt); 
+                        animalAtt.setPorte(porteAtt);
                     }
-                    
-                    System.out.print("Nova Idade (" + animalAtt.getIdade() + "): "); 
+
+                    System.out.print("Nova Idade (" + animalAtt.getIdade() + "): ");
                     String idadeAttStr = entrada.nextLine();
                     if (!idadeAttStr.trim().isEmpty()) {
-                        animalAtt.setIdade(Integer.parseInt(idadeAttStr)); 
+                        animalAtt.setIdade(Integer.parseInt(idadeAttStr));
                     }
                     if (animalAtt instanceof Pet) {
-                        System.out.print("Novo RFID (" + ((Pet) animalAtt).getrfid() + "): "); 
+                        System.out.print("Novo RFID (" + ((Pet) animalAtt).getrfid() + "): ");
                         String rfidAtt = entrada.nextLine();
                         if (!rfidAtt.trim().isEmpty()) {
-                            ((Pet) animalAtt).setrfid(rfidAtt); 
+                            ((Pet) animalAtt).setrfid(rfidAtt);
                         }
                     } else if (animalAtt instanceof Exotico) {
-                        System.out.print("Novo RFIDEX (" + ((Exotico) animalAtt).getRfidex() + "): "); 
+                        System.out.print("Novo RFIDEX (" + ((Exotico) animalAtt).getRfidex() + "): ");
                         String rfidexAtt = entrada.nextLine();
                         if (!rfidexAtt.trim().isEmpty()) {
-                            ((Exotico) animalAtt).setRfidex(rfidexAtt); 
+                            ((Exotico) animalAtt).setRfidex(rfidexAtt);
                         }
-                        
-                        System.out.print("Nova Nota Fiscal (" + ((Exotico) animalAtt).getNotaFiscal() + "): "); 
+
+                        System.out.print("Nova Nota Fiscal (" + ((Exotico) animalAtt).getNotaFiscal() + "): ");
                         String notaAtt = entrada.nextLine();
                         if (!notaAtt.trim().isEmpty()) {
-                            ((Exotico) animalAtt).setNotaFiscal(notaAtt); 
+                            ((Exotico) animalAtt).setNotaFiscal(notaAtt);
                         }
                     }
 
-                    repositorioDeAnimal.atualizar(animalAtt); 
+                    repositorioDeAnimal.atualizar(animalAtt);
                     System.out.println("Animal atualizado com sucesso!");
-                    
+
                     break;
 
                 case 5:
@@ -350,7 +565,7 @@ public class SistemaClinicaVet {
                     String confirmacao = entrada.nextLine();
 
                     if (confirmacao.equalsIgnoreCase("S")) {
-                        boolean deletado = repositorioDeAnimal.deletarAnimal(idDel); 
+                        boolean deletado = repositorioDeAnimal.deletarAnimal(idDel);
                         if (deletado) {
                             System.out.println("Animal excluído com sucesso.");
                         } else {
@@ -360,37 +575,37 @@ public class SistemaClinicaVet {
                         System.out.println("Exclusão cancelada.");
                     }
                     break;
-                
+
                 case 6:
                     System.out.println("--- Buscar Animais por Dono ---");
                     System.out.print("Digite o CPF do Dono: ");
                     String cpfDonoBusca = entrada.nextLine();
-                    
+
                     List<Animal> animaisDoDono = repositorioDeAnimal.BuscarPorDono(cpfDonoBusca); //
-                    
+
                     if (animaisDoDono.isEmpty()) {
                         System.out.println("Nenhum animal encontrado para este dono.");
                     } else {
                         System.out.println("Animais encontrados para o CPF: " + cpfDonoBusca);
                         for (Animal animalDono : animaisDoDono) {
                             System.out.println("--------------------");
-                            System.out.println("ID: " + animalDono.getId()); 
-                            System.out.println("Nome: " + animalDono.getNome()); 
-                            System.out.println("Espécie: " + animalDono.getEspecie()); 
+                            System.out.println("ID: " + animalDono.getId());
+                            System.out.println("Nome: " + animalDono.getNome());
+                            System.out.println("Espécie: " + animalDono.getEspecie());
 
-                            
+
                             if (animalDono instanceof Pet) {
                                 System.out.println("Tipo: Pet");
-                                System.out.println("RFID: " + ((Pet) animalDono).getrfid()); 
+                                System.out.println("RFID: " + ((Pet) animalDono).getrfid());
                             } else if (animalDono instanceof Exotico) {
                                 System.out.println("Tipo: Exótico");
-                                System.out.println("RFIDEX: " + ((Exotico) animalDono).getRfidex()); 
+                                System.out.println("RFIDEX: " + ((Exotico) animalDono).getRfidex());
                                 System.out.println("Nota Fiscal: " + ((Exotico) animalDono).getNotaFiscal());                             }
                         }
                         System.out.println("--------------------");
                     }
                     break;
-                
+
                 case 0:
                     sair = true;
                     System.out.println("Voltando ao menu principal...");

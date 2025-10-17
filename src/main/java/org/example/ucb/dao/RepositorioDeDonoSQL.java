@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class RepositorioDeDonoSQL implements RepositorioDeDono {
             stmt.setString(1, dono.getCPF());
             stmt.setString(2, dono.getNome());
             stmt.setString(3, dono.getEndereco());
-            stmt.setDate(4, new java.sql.Date(dono.getDataNascimento().getTime()));
+            stmt.setDate(4, java.sql.Date.valueOf(dono.getDataNascimento()));
             stmt.executeUpdate();
             System.out.println("Dono salvo no banco de dados com sucesso!");
 
@@ -51,7 +51,7 @@ public class RepositorioDeDonoSQL implements RepositorioDeDono {
                     String cpf = rs.getString("CPF");
                     String nome = rs.getString("nome");
                     String endereco = rs.getString("endereco");
-                    Date dataNascimento = rs.getDate("dataNascimento");
+                    LocalDate dataNascimento = rs.getDate("dataNascimento").toLocalDate();
 
                     donoEncontrado = new Dono(cpf, dataNascimento, endereco, nome);
                 }
@@ -77,7 +77,7 @@ public class RepositorioDeDonoSQL implements RepositorioDeDono {
                 String cpf = rs.getString("CPF");
                 String nome = rs.getString("nome");
                 String endereco = rs.getString("endereco");
-                java.util.Date dataNascimento = rs.getDate("dataNascimento");
+                LocalDate dataNascimento = rs.getDate("dataNascimento").toLocalDate();
 
                 donos.add(new Dono(cpf, dataNascimento, endereco, nome));
             }
@@ -105,7 +105,7 @@ public class RepositorioDeDonoSQL implements RepositorioDeDono {
 
                 stmt.setString(1, dono.getNome());
                 stmt.setString(2, dono.getEndereco());
-                stmt.setDate(3, new java.sql.Date(dono.getDataNascimento().getTime()));
+                stmt.setDate(4, java.sql.Date.valueOf(dono.getDataNascimento()));
                 stmt.setString(4, dono.getCPF());
 
                 int linhasAfetadas = stmt.executeUpdate();
