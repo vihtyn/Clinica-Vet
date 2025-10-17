@@ -25,10 +25,4 @@ public class Especialidade {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public Certificacao getCertificacao() {
-        return certificacao;
-    }
-    public void setCertificacao(Certificacao certificacao) {
-        this.certificacao = certificacao;
-    }
 }
