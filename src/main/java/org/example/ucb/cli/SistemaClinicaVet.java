@@ -17,6 +17,7 @@ public class SistemaClinicaVet {
     private static RepositorioDeDono repositorioDeDono;
     private static RepositorioDeVeterinario repositorioDeVeterinario;
     private static RepositorioDeCertificacao repositorioDeCertificacao;
+    private static RepositorioDeConsulta repositorioDeConsulta;
 
     public static void main(String[] args) {
         try {
@@ -37,6 +38,7 @@ public class SistemaClinicaVet {
         repositorioDeDono = new RepositorioDeDonoSQL();
         repositorioDeVeterinario = new RepositorioDeVeterinarioSQL();
         repositorioDeCertificacao = new RepositorioDeCertificacaoSQL()
+        repositorioDeConsulta = new RepositorioDeConsultaSQL();
     }
 
     private static void exibirMenuPrincipal() {
@@ -49,7 +51,7 @@ public class SistemaClinicaVet {
             System.out.println("4. Gerenciar Tratamentos");
             System.out.println("5. Gerenciar Especialidades"); 
             System.out.println("6. Gerenciar Certificações"); 
-            // Adicione aqui opção para Consulta se/quando fizer
+            System.out.println("7. Gerenciar Consultas");
             System.out.println("0. Sair do Sistema");
             System.out.print("Escolha uma área para gerenciar: ");
 
@@ -63,9 +65,161 @@ public class SistemaClinicaVet {
                 case 4: exibirMenuTratamentos(); break;
                 case 5: exibirMenuEspecialidades(); break; 
                 case 6: exibirMenuCertificacoes(); break; 
-                // Adicione aqui case para Consulta se/quando fizer
+                case 7: exibirMenuConsultas(); break;
                 case 0: sair = true; System.out.println("Obrigado por usar o sistema!"); break;
                 default: System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
+    }
+    private static void exibirMenuConsultas() {
+        boolean sair = false;
+        while (!sair) {
+            System.out.println("\n--- Menu de Gerenciamento de Consultas ---");
+            System.out.println("1. Agendar (Cadastrar) Nova Consulta");
+            System.out.println("2. Listar Todas as Consultas");
+            System.out.println("3. Buscar Consulta por ID");
+            System.out.println("4. Listar Consultas de um Animal (por ID)");
+            System.out.println("5. Atualizar Diagnóstico da Consulta");
+            System.out.println("6. Cancelar (Deletar) Consulta");
+            System.out.println("0. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = entrada.nextInt();
+            entrada.nextLine(); // Limpa o buffer
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("\n--- Agendar Nova Consulta ---");
+
+                    System.out.print("Digite o ID do Animal para a consulta: ");
+                    int idAnimalConsulta = entrada.nextInt();
+                    entrada.nextLine(); // Limpa buffer
+
+                    Animal animalConsulta = repositorioDeAnimal.BuscarPorId(idAnimalConsulta); 
+
+                    if (animalConsulta == null) {
+                        System.out.println("Erro: Animal com ID " + idAnimalConsulta + " não encontrado.");
+                        break;
+                    }
+                    System.out.println("Animal encontrado: " + animalConsulta.getNome()); 
+
+                    System.out.print("Digite o CRMV do Veterinário: ");
+                    String crmvConsulta = entrada.nextLine();
+                    Veterinario vetConsulta = repositorioDeVeterinario.BuscarVet(crmvConsulta); 
+
+                    if (vetConsulta == null) {
+                        System.out.println("Erro: Veterinário com CRMV " + crmvConsulta + " não encontrado.");
+                        break;
+                    }
+                    System.out.println("Veterinário encontrado: " + vetConsulta.getNome()); 
+
+                    System.out.print("Digite o diagnóstico inicial (ou deixe em branco): ");
+                    String diagnostico = entrada.nextLine();
+                    Consulta novaConsulta = new Consulta(0, diagnostico, animalConsulta, vetConsulta); 
+                    repositorioDeConsulta.salvar(novaConsulta); 
+                    break;
+
+                case 2:
+                    System.out.println("\n--- Lista de Todas as Consultas ---");
+                    List<Consulta> todasConsultas = repositorioDeConsulta.ListarConsulta(); 
+
+                    if (todasConsultas == null || todasConsultas.isEmpty()) {
+                        System.out.println("Nenhuma consulta agendada.");
+                    } else {
+                        for (Consulta c : todasConsultas) {
+                            System.out.println("--------------------");
+                            System.out.println("ID Consulta: " + c.getid()); 
+                            System.out.println("Animal: " + (c.getanimal() != null ? c.getanimal().getNome() : "N/A")); 
+                            System.out.println("Veterinário: " + (c.getveterinario() != null ? c.getveterinario().getNome() : "N/A")); 
+                            System.out.println("Diagnóstico: " + c.getdiagnostico()); 
+                        }
+                        System.out.println("--------------------");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("\n--- Buscar Consulta por ID ---");
+                    System.out.print("Digite o ID da consulta: ");
+                    int idBuscaConsulta = entrada.nextInt();
+                    entrada.nextLine(); // Limpa buffer
+                    Consulta consultaEncontrada = repositorioDeConsulta.BuscarConsulta(idBuscaConsulta); 
+
+                    if (consultaEncontrada != null) {
+                        System.out.println("\n--- Consulta Encontrada ---");
+                        System.out.println("ID Consulta: " + consultaEncontrada.getid()); 
+                        System.out.println("Animal: " + (consultaEncontrada.getanimal() != null ? consultaEncontrada.getanimal().getNome() : "N/A")); 
+                        System.out.println("Veterinário: " + (consultaEncontrada.getveterinario() != null ? consultaEncontrada.getveterinario().getNome() : "N/A")); 
+                        System.out.println("Diagnóstico: " + consultaEncontrada.getdiagnostico()); 
+                        System.out.println("-------------------------");
+                    } else {
+                        System.out.println("\nConsulta com ID " + idBuscaConsulta + " não encontrada.");
+                    }
+                    break;
+
+                 case 4:
+                    System.out.println("\n--- Listar Consultas por Animal ---");
+                    System.out.print("Digite o ID do Animal: ");
+                    int idAnimalBusca = entrada.nextInt();
+                    entrada.nextLine(); // Limpa buffer
+
+                    List<Consulta> consultasDoAnimal = repositorioDeConsulta.BuscarPorAnimal(idAnimalBusca); 
+
+                    if (consultasDoAnimal == null || consultasDoAnimal.isEmpty()) {
+                        System.out.println("Nenhuma consulta encontrada para o animal com ID " + idAnimalBusca);
+                    } else {
+                        System.out.println("\n--- Consultas Encontradas para o Animal ID " + idAnimalBusca + " ---");
+                        for (Consulta c : consultasDoAnimal) {
+                             System.out.println("--------------------");
+                             System.out.println("ID Consulta: " + c.getid()); 
+                             System.out.println("Veterinário: " + (c.getveterinario() != null ? c.getveterinario().getNome() : "N/A")); 
+                             System.out.println("Diagnóstico: " + c.getdiagnostico()); 
+                        }
+                        System.out.println("--------------------");
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("\n--- Atualizar Diagnóstico da Consulta ---");
+                    System.out.print("Digite o ID da consulta que deseja atualizar: ");
+                    int idConsultaAtt = entrada.nextInt();
+                    entrada.nextLine(); // Limpa buffer
+
+                    Consulta consultaAtt = repositorioDeConsulta.BuscarConsulta(idConsultaAtt); 
+
+                    if (consultaAtt == null) {
+                        System.out.println("Consulta não encontrada.");
+                        break;
+                    }
+
+                    System.out.println("Consulta encontrada. Animal: " + consultaAtt.getanimal().getNome() + ", Vet: " + consultaAtt.getveterinario().getNome()); 
+                    System.out.print("Digite o NOVO diagnóstico (Atual: " + consultaAtt.getdiagnostico() + "): "); 
+                    String novoDiagnostico = entrada.nextLine();
+
+                    consultaAtt.setdiagnostico(novoDiagnostico); 
+                    repositorioDeConsulta.atualizarConsulta(consultaAtt); 
+                    break;
+
+                case 6:
+                    System.out.println("\n--- Cancelar (Deletar) Consulta ---");
+                    System.out.print("Digite o ID da consulta a ser deletada: ");
+                    int idConsultaDel = entrada.nextInt();
+                    entrada.nextLine(); // Limpa buffer
+
+                    System.out.print("Tem certeza que deseja deletar esta consulta (ID: " + idConsultaDel + ")? (S/N): ");
+                    if (entrada.nextLine().equalsIgnoreCase("S")) {
+                        boolean deletado = repositorioDeConsulta.deletarConsulta(idConsultaDel); //
+                    } else {
+                        System.out.println("Operação cancelada.");
+                    }
+                    break;
+
+                case 0:
+                    sair = true;
+                    System.out.println("Voltando ao menu principal...");
+                    break;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+                    break;
             }
         }
     }
