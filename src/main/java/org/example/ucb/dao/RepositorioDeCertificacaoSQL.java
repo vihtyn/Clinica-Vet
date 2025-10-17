@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class RepositorioDeCertificacaoSQL implements RepositorioDeCertificacao {
         try (Connection conexao = new ConexaoMySQL().obterConexao();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, certificacao.getNumeroRegistro());
-            stmt.setDate(2, new java.sql.Date(certificacao.getDataObtencao().getTime()));
+            stmt.setDate(2, java.sql.Date.valueOf(certificacao.getDataObtencao()));
             stmt.setString(3, certificacao.getInstituicaoCertificadora());
             stmt.setString(4, certificacao.getVeterinario().getCrmv());
             stmt.setInt(5, certificacao.getEspecialidade().getId());
@@ -54,7 +54,7 @@ public class RepositorioDeCertificacaoSQL implements RepositorioDeCertificacao {
                     Veterinario veterinario = new Veterinario();
                     Especialidade especialidade = new Especialidade();
 
-                    veterinario.setCrmv(rs.getString("CRMV"));
+                    veterinario.setCrmv(rs.getString("CRMV_Certif"));
                     veterinario.setNome(rs.getString("Vet_nome"));
 
                     especialidade.setId(rs.getInt("ID_especialidade"));
@@ -91,10 +91,10 @@ public class RepositorioDeCertificacaoSQL implements RepositorioDeCertificacao {
                 veterinarioDV.setNome(rs.getString("Vet_nome"));
 
                 especialidadeDV.setId(rs.getInt("ID_especialidade"));
-                veterinarioDV.setNome(rs.getString("especiliade_nome"));
+                veterinarioDV.setNome(rs.getString("especialidade_nome"));
 
                 certificacaoDV.setNumeroRegistro(rs.getString("NumeroRegistro"));
-                certificacaoDV.setDataObtencao(rs.getDate("DataObtencao"));
+                certificacaoDV.setDataObtencao(rs.getDate("DataObtencao").toLocalDate());
                 certificacaoDV.setInstituicaoCertificadora(rs.getString("InstituicaoCertificadora"));
 
                 certificacaoDV.setVeterinario(veterinarioDV);
@@ -132,7 +132,7 @@ public class RepositorioDeCertificacaoSQL implements RepositorioDeCertificacao {
                     especialidadeDV.setNome(rs.getString("especialidade_nome"));
 
                     certificacaoDV.setNumeroRegistro(rs.getString("NumeroRegistro"));
-                    certificacaoDV.setDataObtencao(rs.getDate("DataObtencao"));
+                    certificacaoDV.setDataObtencao(rs.getDate("DataObtencao").toLocalDate());
                     certificacaoDV.setInstituicaoCertificadora(rs.getString("InstituicaoCertificadora"));
 
                     certificacaoDV.setVeterinario(veterinarioDV);

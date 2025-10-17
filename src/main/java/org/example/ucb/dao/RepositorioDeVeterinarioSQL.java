@@ -12,7 +12,7 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
 
     @Override
     public void salvar(Veterinario veterinario) {
-        String sql = "INSERT INTO veterinario (crmv, nome, idade, dataGraduacao) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO veterinario (crmv, nome, idade, data_Graduacao) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = new ConexaoMySQL().obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -49,7 +49,7 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
                 if (rs.next()) {
                     String nome = rs.getString("nome");
                     int idade = rs.getInt("idade");
-                    java.time.LocalDate dataGraduacao = rs.getDate("dataGraduacao").toLocalDate();
+                    java.time.LocalDate dataGraduacao = rs.getDate("data_Graduacao").toLocalDate();
 
                     vetEncontrado = new Veterinario(crmv, nome, idade, dataGraduacao);
                 }
@@ -76,7 +76,7 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
             String crmv = rs.getString("crmv");
             String nome = rs.getString("nome");
             int idade = rs.getInt("idade");
-            java.time.LocalDate dataGraduacao = rs.getDate("dataGraduacao").toLocalDate();
+            java.time.LocalDate dataGraduacao = rs.getDate("data_Graduacao").toLocalDate();
 
             veterinarios.add(new Veterinario(crmv, nome, idade, dataGraduacao));
         }
@@ -96,7 +96,7 @@ public class RepositorioDeVeterinarioSQL implements RepositorioDeVeterinario {
 
     @Override
     public void atualizar(Veterinario veterinario) {
-        String sql = "UPDATE veterinario SET nome = ?, idade = ?, dataGraduacao = ? WHERE crmv = ?";
+        String sql = "UPDATE veterinario SET nome = ?, idade = ?, data_Graduacao = ? WHERE crmv = ?";
 
         try (Connection conn = new ConexaoMySQL().obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

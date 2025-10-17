@@ -14,7 +14,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
 
     @Override
     public void salvar(Consulta consulta) {
-            String sql = "INSET INTO consulta (diagnostico, id_animal, CRMV_veterinario) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO consulta (diagnostico, id_animal, CRMV_veterinario) VALUES (?, ?, ?)";
 
             try (Connection conexao = new ConexaoMySQL().obterConexao();
                  PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -39,7 +39,10 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
 
     @Override
     public Consulta BuscarConsulta(int id) {
-        String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta co INNER JOIN Animal a ON co.CRMV_veterinario = v.CRMV WHERE co.id = ?";
+        String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta co " +
+                "INNER JOIN Animal a ON co.id_animal = a.ID " +
+                "INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV WHERE co.id = ?";
+
         Consulta consulta = null;
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
@@ -57,7 +60,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
                     animalDaConsulta.setNome(rs.getString("animal_nome"));
 
                     veterinario.setCrmv(rs.getString("CRMV_veterinario"));
-                    veterinario.setNome(rs.getString("Vet_nome"));
+                    veterinario.setNome(rs.getString("vet_nome"));
 
                 consulta.setid(rs.getInt("id"));
                 consulta.setdiagnostico(rs.getString("diagnostico"));
@@ -92,7 +95,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
                 animalDaConsulta.setNome(rs.getString("animal_nome"));
 
                 veterinario.setCrmv(rs.getString("CRMV_veterinario"));
-                veterinario.setNome(rs.getString("Vet_nome"));
+                veterinario.setNome(rs.getString("vet_nome"));
 
                 consulta.setid(rs.getInt("id"));
                 consulta.setdiagnostico(rs.getString("diagnostico"));

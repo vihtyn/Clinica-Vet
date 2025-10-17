@@ -50,7 +50,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
                     stmtPet.executeUpdate();
                 }
             } else if (animal instanceof Exotico){
-                String sqlExotico = "INSERT INTO Exotico (animal_ID, NotaFiscal, RFIDEX) VALUES (?, ?, ?)";
+                String sqlExotico = "INSERT INTO Exotico (animal_ID, Nota_Fiscal, RFIDEX) VALUES (?, ?, ?)";
                 try (PreparedStatement stmtExotico = conexao.prepareStatement(sqlExotico)) {
                     stmtExotico.setInt(1, animal.getId());
                     stmtExotico.setString(2, ((Exotico) animal).getNotaFiscal());
@@ -69,7 +69,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
 
     @Override
     public Animal BuscarPorId(int id){
-        String sql = "SELECT a.*, p.RFID, e.NotaFiscal, e.RFIDEX FROM Animal a LEFT JOIN Pet p ON a.ID = p.animal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID WHERE a.ID = ?";
+        String sql = "SELECT a.*, p.RFID, e.Nota_Fiscal, e.RFIDEX FROM Animal a LEFT JOIN Pet p ON a.ID = p.animal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID WHERE a.ID = ?";
 
         Animal animal = null;
 
@@ -81,7 +81,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
             try( ResultSet rs = stmt.executeQuery()){
                 if(rs.next()){
                     String rfidPet = rs.getString(("RFID"));
-                    String notaFiscalExotico = rs.getString("NotaFiscal");
+                    String notaFiscalExotico = rs.getString("Nota_Fiscal");
 
                     if(rfidPet != null) {
                         animal = new Pet();
@@ -111,7 +111,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
     public List<Animal> ListarTodos() {
         List<Animal> animais = new ArrayList<>();
 
-        String sql = "SELECT a.*, p.RFID, e.NotaFiscal, e.RFIDEX FROM Animal a LEFT JOIN Pet p ON a.ID = p.animal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID";
+        String sql = "SELECT a.*, p.RFID, e.Nota_Fiscal, e.RFIDEX FROM Animal a LEFT JOIN Pet p ON a.ID = p.animal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID";
         RepositorioDeDono repositorioDonos = new RepositorioDeDonoSQL();
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
@@ -120,7 +120,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
             while (rs.next()){
                 Animal animal = null;
                 String rfidPet = rs.getString("RFID");
-                String notaFiscalExotico = rs.getString("NotaFiscal");
+                String notaFiscalExotico = rs.getString("Nota_Fiscal");
 
                 if(rfidPet != null){
                     animal = new Pet();
@@ -154,7 +154,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
     @Override
     public List<Animal> BuscarPorDono(String CpfDono) {
         List<Animal> animaisDoDono = new ArrayList<>();
-        String sql = "SELECT a.*, p.RFID, e.NotaFiscal, e.RFIDEX FROM Animal a LEFT JOIN Pet p ON a.ID = p.animal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID WHERE a.CPF_dono = ?";
+        String sql = "SELECT a.*, p.RFID, e.Nota_Fiscal, e.RFIDEX FROM Animal a LEFT JOIN Pet p ON a.ID = p.animal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID WHERE a.CPF_dono = ?";
 
                 try (Connection conexao = new ConexaoMySQL().obterConexao();
                      PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -165,7 +165,7 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
                         while (rs.next()) {
                             Animal animal = null;
                             String rfidPet = rs.getString("RFID");
-                            String notaFiscalExotico = rs.getString("NotaFiscal");
+                            String notaFiscalExotico = rs.getString("Nota_Fiscal");
 
                             if(rfidPet != null) {
                                 animal = new Pet();
@@ -195,7 +195,10 @@ public class RepositorioDeAnimalSQL implements RepositorioDeAnimal {
 
     @Override
     public boolean deletarAnimal(int id) {
-        String sqlSELECT = "SELECT p.animal_ID as petID, e.animla_ID as exoticoID FROM Animal a LEF JOIN Pet p ON a.ID = panimal_ID LEFT JOIN Exotico e ON a.ID = e.animal_ID WHERE a.ID = ?";
+        String sqlSELECT = "SELECT p.animal_ID as petId, e.animal_ID as exoticoId FROM Animal a " +
+                "LEFT JOIN Pet p ON a.ID = p.animal_ID " +
+                "LEFT JOIN Exotico e ON a.ID = e.animal_ID " +
+                "WHERE a.ID = ?";
         String sqlDeleteAnimal = "DELETE FROM Animal WHERE ID = ?";
         String sqlDeletePet = "DELETE FROM Pet WHERE animal_ID = ?";
         String sqlDeleteExotico = "DELETE FROM Exotico WHERE animal_ID = ?";

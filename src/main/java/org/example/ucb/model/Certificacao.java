@@ -1,11 +1,12 @@
 package org.example.ucb.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Certificacao {
 
     private String NumeroRegistro;
-    private Date DataObtencao;
+    private LocalDate DataObtencao;
     private String InstituicaoCertificadora;
     private Veterinario veterinario;
     private Especialidade especialidade;
@@ -14,7 +15,7 @@ public class Certificacao {
 
     }
 
-    public Certificacao(String NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario) {
+    public Certificacao(String NumeroRegistro, LocalDate DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario) {
         this.NumeroRegistro = NumeroRegistro;
         this.DataObtencao = DataObtencao;
         this.InstituicaoCertificadora = InstituicaoCertificadora;
@@ -29,11 +30,11 @@ public class Certificacao {
         this.NumeroRegistro = NumeroRegistro;
     }
 
-    public Date getDataObtencao() {
+    public LocalDate getDataObtencao() {
         return DataObtencao;
     }
 
-    public void setDataObtencao(Date DataObtencao) {
+    public void setDataObtencao(LocalDate DataObtencao) {
         this.DataObtencao = DataObtencao;
     }
 

@@ -37,7 +37,7 @@ public class SistemaClinicaVet {
         repositorioDeAnimal = new RepositorioDeAnimalSQL();
         repositorioDeDono = new RepositorioDeDonoSQL();
         repositorioDeVeterinario = new RepositorioDeVeterinarioSQL();
-        repositorioDeCertificacao = new RepositorioDeCertificacaoSQL()
+        repositorioDeCertificacao = new RepositorioDeCertificacaoSQL();
         repositorioDeConsulta = new RepositorioDeConsultaSQL();
     }
 
@@ -49,8 +49,8 @@ public class SistemaClinicaVet {
             System.out.println("2. Gerenciar Veterinários");
             System.out.println("3. Gerenciar Animais");
             System.out.println("4. Gerenciar Tratamentos");
-            System.out.println("5. Gerenciar Especialidades"); 
-            System.out.println("6. Gerenciar Certificações"); 
+            System.out.println("5. Gerenciar Especialidades");
+            System.out.println("6. Gerenciar Certificações");
             System.out.println("7. Gerenciar Consultas");
             System.out.println("0. Sair do Sistema");
             System.out.print("Escolha uma área para gerenciar: ");
@@ -59,18 +59,37 @@ public class SistemaClinicaVet {
             entrada.nextLine(); // Limpa buffer
 
             switch (opcao) {
-                case 1: exibirMenuDono(); break;
-                case 2: exibirMenuVeterinario(); break;
-                case 3: exibirMenuAnimais(); break;
-                case 4: exibirMenuTratamentos(); break;
-                case 5: exibirMenuEspecialidades(); break; 
-                case 6: exibirMenuCertificacoes(); break; 
-                case 7: exibirMenuConsultas(); break;
-                case 0: sair = true; System.out.println("Obrigado por usar o sistema!"); break;
-                default: System.out.println("Opção inválida! Tente novamente.");
+                case 1:
+                    exibirMenuDono();
+                    break;
+                case 2:
+                    exibirMenuVeterinario();
+                    break;
+                case 3:
+                    exibirMenuAnimais();
+                    break;
+                case 4:
+                    exibirMenuTratamentos();
+                    break;
+                case 5:
+                    exibirMenuEspecialidades();
+                    break;
+                case 6:
+                    exibirMenuCertificacoes();
+                    break;
+                case 7:
+                    exibirMenuConsultas();
+                    break;
+                case 0:
+                    sair = true;
+                    System.out.println("Obrigado por usar o sistema!");
+                    break;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
             }
         }
     }
+
     private static void exibirMenuConsultas() {
         boolean sair = false;
         while (!sair) {
@@ -95,43 +114,43 @@ public class SistemaClinicaVet {
                     int idAnimalConsulta = entrada.nextInt();
                     entrada.nextLine(); // Limpa buffer
 
-                    Animal animalConsulta = repositorioDeAnimal.BuscarPorId(idAnimalConsulta); 
+                    Animal animalConsulta = repositorioDeAnimal.BuscarPorId(idAnimalConsulta);
 
                     if (animalConsulta == null) {
                         System.out.println("Erro: Animal com ID " + idAnimalConsulta + " não encontrado.");
                         break;
                     }
-                    System.out.println("Animal encontrado: " + animalConsulta.getNome()); 
+                    System.out.println("Animal encontrado: " + animalConsulta.getNome());
 
                     System.out.print("Digite o CRMV do Veterinário: ");
                     String crmvConsulta = entrada.nextLine();
-                    Veterinario vetConsulta = repositorioDeVeterinario.BuscarVet(crmvConsulta); 
+                    Veterinario vetConsulta = repositorioDeVeterinario.BuscarVet(crmvConsulta);
 
                     if (vetConsulta == null) {
                         System.out.println("Erro: Veterinário com CRMV " + crmvConsulta + " não encontrado.");
                         break;
                     }
-                    System.out.println("Veterinário encontrado: " + vetConsulta.getNome()); 
+                    System.out.println("Veterinário encontrado: " + vetConsulta.getNome());
 
                     System.out.print("Digite o diagnóstico inicial (ou deixe em branco): ");
                     String diagnostico = entrada.nextLine();
-                    Consulta novaConsulta = new Consulta(0, diagnostico, animalConsulta, vetConsulta); 
-                    repositorioDeConsulta.salvar(novaConsulta); 
+                    Consulta novaConsulta = new Consulta(0, diagnostico, animalConsulta, vetConsulta);
+                    repositorioDeConsulta.salvar(novaConsulta);
                     break;
 
                 case 2:
                     System.out.println("\n--- Lista de Todas as Consultas ---");
-                    List<Consulta> todasConsultas = repositorioDeConsulta.ListarConsulta(); 
+                    List<Consulta> todasConsultas = repositorioDeConsulta.ListarConsulta();
 
                     if (todasConsultas == null || todasConsultas.isEmpty()) {
                         System.out.println("Nenhuma consulta agendada.");
                     } else {
                         for (Consulta c : todasConsultas) {
                             System.out.println("--------------------");
-                            System.out.println("ID Consulta: " + c.getid()); 
-                            System.out.println("Animal: " + (c.getanimal() != null ? c.getanimal().getNome() : "N/A")); 
-                            System.out.println("Veterinário: " + (c.getveterinario() != null ? c.getveterinario().getNome() : "N/A")); 
-                            System.out.println("Diagnóstico: " + c.getdiagnostico()); 
+                            System.out.println("ID Consulta: " + c.getid());
+                            System.out.println("Animal: " + (c.getanimal() != null ? c.getanimal().getNome() : "N/A"));
+                            System.out.println("Veterinário: " + (c.getveterinario() != null ? c.getveterinario().getNome() : "N/A"));
+                            System.out.println("Diagnóstico: " + c.getdiagnostico());
                         }
                         System.out.println("--------------------");
                     }
@@ -142,37 +161,37 @@ public class SistemaClinicaVet {
                     System.out.print("Digite o ID da consulta: ");
                     int idBuscaConsulta = entrada.nextInt();
                     entrada.nextLine(); // Limpa buffer
-                    Consulta consultaEncontrada = repositorioDeConsulta.BuscarConsulta(idBuscaConsulta); 
+                    Consulta consultaEncontrada = repositorioDeConsulta.BuscarConsulta(idBuscaConsulta);
 
                     if (consultaEncontrada != null) {
                         System.out.println("\n--- Consulta Encontrada ---");
-                        System.out.println("ID Consulta: " + consultaEncontrada.getid()); 
-                        System.out.println("Animal: " + (consultaEncontrada.getanimal() != null ? consultaEncontrada.getanimal().getNome() : "N/A")); 
-                        System.out.println("Veterinário: " + (consultaEncontrada.getveterinario() != null ? consultaEncontrada.getveterinario().getNome() : "N/A")); 
-                        System.out.println("Diagnóstico: " + consultaEncontrada.getdiagnostico()); 
+                        System.out.println("ID Consulta: " + consultaEncontrada.getid());
+                        System.out.println("Animal: " + (consultaEncontrada.getanimal() != null ? consultaEncontrada.getanimal().getNome() : "N/A"));
+                        System.out.println("Veterinário: " + (consultaEncontrada.getveterinario() != null ? consultaEncontrada.getveterinario().getNome() : "N/A"));
+                        System.out.println("Diagnóstico: " + consultaEncontrada.getdiagnostico());
                         System.out.println("-------------------------");
                     } else {
                         System.out.println("\nConsulta com ID " + idBuscaConsulta + " não encontrada.");
                     }
                     break;
 
-                 case 4:
+                case 4:
                     System.out.println("\n--- Listar Consultas por Animal ---");
                     System.out.print("Digite o ID do Animal: ");
                     int idAnimalBusca = entrada.nextInt();
                     entrada.nextLine(); // Limpa buffer
 
-                    List<Consulta> consultasDoAnimal = repositorioDeConsulta.BuscarPorAnimal(idAnimalBusca); 
+                    List<Consulta> consultasDoAnimal = repositorioDeConsulta.BuscarPorAnimal(idAnimalBusca);
 
                     if (consultasDoAnimal == null || consultasDoAnimal.isEmpty()) {
                         System.out.println("Nenhuma consulta encontrada para o animal com ID " + idAnimalBusca);
                     } else {
                         System.out.println("\n--- Consultas Encontradas para o Animal ID " + idAnimalBusca + " ---");
                         for (Consulta c : consultasDoAnimal) {
-                             System.out.println("--------------------");
-                             System.out.println("ID Consulta: " + c.getid()); 
-                             System.out.println("Veterinário: " + (c.getveterinario() != null ? c.getveterinario().getNome() : "N/A")); 
-                             System.out.println("Diagnóstico: " + c.getdiagnostico()); 
+                            System.out.println("--------------------");
+                            System.out.println("ID Consulta: " + c.getid());
+                            System.out.println("Veterinário: " + (c.getveterinario() != null ? c.getveterinario().getNome() : "N/A"));
+                            System.out.println("Diagnóstico: " + c.getdiagnostico());
                         }
                         System.out.println("--------------------");
                     }
@@ -184,19 +203,19 @@ public class SistemaClinicaVet {
                     int idConsultaAtt = entrada.nextInt();
                     entrada.nextLine(); // Limpa buffer
 
-                    Consulta consultaAtt = repositorioDeConsulta.BuscarConsulta(idConsultaAtt); 
+                    Consulta consultaAtt = repositorioDeConsulta.BuscarConsulta(idConsultaAtt);
 
                     if (consultaAtt == null) {
                         System.out.println("Consulta não encontrada.");
                         break;
                     }
 
-                    System.out.println("Consulta encontrada. Animal: " + consultaAtt.getanimal().getNome() + ", Vet: " + consultaAtt.getveterinario().getNome()); 
-                    System.out.print("Digite o NOVO diagnóstico (Atual: " + consultaAtt.getdiagnostico() + "): "); 
+                    System.out.println("Consulta encontrada. Animal: " + consultaAtt.getanimal().getNome() + ", Vet: " + consultaAtt.getveterinario().getNome());
+                    System.out.print("Digite o NOVO diagnóstico (Atual: " + consultaAtt.getdiagnostico() + "): ");
                     String novoDiagnostico = entrada.nextLine();
 
-                    consultaAtt.setdiagnostico(novoDiagnostico); 
-                    repositorioDeConsulta.atualizarConsulta(consultaAtt); 
+                    consultaAtt.setdiagnostico(novoDiagnostico);
+                    repositorioDeConsulta.atualizarConsulta(consultaAtt);
                     break;
 
                 case 6:
@@ -223,6 +242,7 @@ public class SistemaClinicaVet {
             }
         }
     }
+
     //Parte do Victor Caldas - Dono
     private static void exibirMenuDono() {
         boolean sair = false;
@@ -316,8 +336,11 @@ public class SistemaClinicaVet {
                         System.out.println("Operação cancelada.");
                     }
                     break;
-                case 0: sair = true; break;
-                default: System.out.println("Opção inválida!");
+                case 0:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
             }
         }
     }
@@ -414,13 +437,17 @@ public class SistemaClinicaVet {
                         System.out.println("Operação cancelada.");
                     }
                     break;
-                case 0: sair = true; break;
-                default: System.out.println("Opção inválida!");
+                case 0:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
             }
         }
     }
-        // PARTE DO VÍTOR - TRATAMENTOS;
-        private static void exibirMenuTratamentos() {
+
+    // PARTE DO VÍTOR - TRATAMENTOS;
+    private static void exibirMenuTratamentos() {
         boolean sair = false;
         while (!sair) {
             System.out.println("\n--- Menu de Gerenciamento de Tratamentos ---");
@@ -435,7 +462,7 @@ public class SistemaClinicaVet {
 
             switch (opcao) {
                 case 1:
-                     System.out.println("\n--- Adicionar Novo Tratamento ---");
+                    System.out.println("\n--- Adicionar Novo Tratamento ---");
 
                     System.out.print("Digite o ID da consulta à qual este tratamento pertence: ");
                     int idConsulta = entrada.nextInt();
@@ -511,8 +538,8 @@ public class SistemaClinicaVet {
         }
     }
 
-        //PARTE DO RENAN - ANIMAL;
-        private static void exibirMenuAnimais() {
+    //PARTE DO RENAN - ANIMAL;
+    private static void exibirMenuAnimais() {
         boolean sair = false;
 
         while (!sair) {
@@ -730,7 +757,7 @@ public class SistemaClinicaVet {
                         if (deletado) {
                             System.out.println("Animal excluído com sucesso.");
                         } else {
-                             System.out.println("Erro ao excluir animal.");
+                            System.out.println("Erro ao excluir animal.");
                         }
                     } else {
                         System.out.println("Exclusão cancelada.");
@@ -761,7 +788,8 @@ public class SistemaClinicaVet {
                             } else if (animalDono instanceof Exotico) {
                                 System.out.println("Tipo: Exótico");
                                 System.out.println("RFIDEX: " + ((Exotico) animalDono).getRfidex());
-                                System.out.println("Nota Fiscal: " + ((Exotico) animalDono).getNotaFiscal());                             }
+                                System.out.println("Nota Fiscal: " + ((Exotico) animalDono).getNotaFiscal());
+                            }
                         }
                         System.out.println("--------------------");
                     }
@@ -777,7 +805,8 @@ public class SistemaClinicaVet {
             }
         }
     }
-    // PARTE DO VÍTOR - ESPECIALIDADES; 
+
+    // PARTE DO VÍTOR - ESPECIALIDADES;
     private static void exibirMenuEspecialidades() {
         boolean sair = false;
         while (!sair) {
@@ -854,43 +883,43 @@ public class SistemaClinicaVet {
                     break;
 
                 case 5:
-                     System.out.println("\n--- Atualizar Nome da Especialidade ---");
-                     System.out.print("Digite o ID da especialidade que deseja atualizar: ");
-                     int idAtt = entrada.nextInt();
-                     entrada.nextLine(); // Limpa buffer
+                    System.out.println("\n--- Atualizar Nome da Especialidade ---");
+                    System.out.print("Digite o ID da especialidade que deseja atualizar: ");
+                    int idAtt = entrada.nextInt();
+                    entrada.nextLine(); // Limpa buffer
 
-                     Especialidade espAtt = repositorioDeEspecialidade.BuscarEspecialidade(idAtt);
-                     if (espAtt == null) {
-                         System.out.println("Especialidade não encontrada.");
-                         break;
-                     }
+                    Especialidade espAtt = repositorioDeEspecialidade.BuscarEspecialidade(idAtt);
+                    if (espAtt == null) {
+                        System.out.println("Especialidade não encontrada.");
+                        break;
+                    }
 
-                     System.out.print("Digite o NOVO nome para a especialidade (Atual: " + espAtt.getNome() + "): ");
-                     String novoNome = entrada.nextLine();
-                     espAtt.setNome(novoNome); 
+                    System.out.print("Digite o NOVO nome para a especialidade (Atual: " + espAtt.getNome() + "): ");
+                    String novoNome = entrada.nextLine();
+                    espAtt.setNome(novoNome);
 
-                     repositorioDeEspecialidade.atualizarEspecialidade(espAtt);
-                     // Mensagem de sucesso vem do DAO
-                     break;
+                    repositorioDeEspecialidade.atualizarEspecialidade(espAtt);
+                    // Mensagem de sucesso vem do DAO
+                    break;
 
                 case 6:
-                     System.out.println("\n--- Deletar Especialidade ---");
-                     System.out.print("Digite o ID da especialidade que deseja deletar: ");
-                     int idDel = entrada.nextInt();
-                     entrada.nextLine(); // Limpa buffer
+                    System.out.println("\n--- Deletar Especialidade ---");
+                    System.out.print("Digite o ID da especialidade que deseja deletar: ");
+                    int idDel = entrada.nextInt();
+                    entrada.nextLine(); // Limpa buffer
 
-                     System.out.print("Tem certeza que deseja deletar? (S/N): ");
-                     if (entrada.nextLine().equalsIgnoreCase("S")) {
-                         boolean deletado = repositorioDeEspecialidade.deletarEspecialidade(idDel);
-                         if (deletado) {
-                             System.out.println("Especialidade deletada com sucesso.");
-                         } else {
-                             System.err.println("Erro: Especialidade não encontrada ou não pôde ser deletada (verifique se está sendo usada em alguma Certificação).");
-                         }
-                     } else {
-                         System.out.println("Operação cancelada.");
-                     }
-                     break;
+                    System.out.print("Tem certeza que deseja deletar? (S/N): ");
+                    if (entrada.nextLine().equalsIgnoreCase("S")) {
+                        boolean deletado = repositorioDeEspecialidade.deletarEspecialidade(idDel);
+                        if (deletado) {
+                            System.out.println("Especialidade deletada com sucesso.");
+                        } else {
+                            System.err.println("Erro: Especialidade não encontrada ou não pôde ser deletada (verifique se está sendo usada em alguma Certificação).");
+                        }
+                    } else {
+                        System.out.println("Operação cancelada.");
+                    }
+                    break;
 
                 case 0:
                     sair = true;
@@ -902,21 +931,22 @@ public class SistemaClinicaVet {
             }
         }
     }
-            private static void exibirMenuCertificacoes() {
-            boolean sair = false;
-    
-            while (!sair) {
-                System.out.println("\n--- Menu de Certificações ---");
-                System.out.println("1. Cadastrar Certificação (Ligar Vet a Especialidade)");
-                System.out.println("2. Listar Todas as Certificações");
-                System.out.println("3. Buscar Certificação por Número de Registro");
-                System.out.println("4. Listar Certificações por Veterinário (CRMV)");
-                System.out.println("5. Excluir Certificação");
-                System.out.println("0. Voltar ao Menu Principal");
-                System.out.print("Escolha uma opção: ");
-    
-                int opcao = entrada.nextInt();
-                entrada.nextLine();
+
+    private static void exibirMenuCertificacoes() {
+        boolean sair = false;
+
+        while (!sair) {
+            System.out.println("\n--- Menu de Certificações ---");
+            System.out.println("1. Cadastrar Certificação (Ligar Vet a Especialidade)");
+            System.out.println("2. Listar Todas as Certificações");
+            System.out.println("3. Buscar Certificação por Número de Registro");
+            System.out.println("4. Listar Certificações por Veterinário (CRMV)");
+            System.out.println("5. Excluir Certificação");
+            System.out.println("0. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = entrada.nextInt();
+            entrada.nextLine();
 
             switch (opcao) {
                 case 1:
@@ -924,78 +954,78 @@ public class SistemaClinicaVet {
 
                     System.out.print("Digite o CRMV do Veterinário: ");
                     String crmv = entrada.nextLine();
-                    Veterinario vet = repositorioDeVeterinario.BuscarVet(crmv); 
+                    Veterinario vet = repositorioDeVeterinario.BuscarVet(crmv);
 
                     if (vet == null) {
                         System.out.println("Erro: Veterinário com CRMV " + crmv + " não encontrado.");
-                        break; 
+                        break;
                     }
-                    System.out.println("Veterinário encontrado: " + vet.getNome()); 
+                    System.out.println("Veterinário encontrado: " + vet.getNome());
 
                     System.out.print("Digite o ID da Especialidade (que é auto_increment): ");
                     int espId = entrada.nextInt();
-                    entrada.nextLine(); 
-                    Especialidade esp = repositorioDeEspecialidade.BuscarEspecialidade(espId); 
+                    entrada.nextLine();
+                    Especialidade esp = repositorioDeEspecialidade.BuscarEspecialidade(espId);
 
                     if (esp == null) {
                         System.out.println("Erro: Especialidade com ID " + espId + " não encontrada.");
-                        break; 
+                        break;
                     }
                     System.out.println("Especialidade encontrada: " + esp.getNome()); //
                     System.out.print("Número do Registro (Ex: 'REG-DF-24-001A'): ");
                     String numReg = entrada.nextLine();
                     System.out.print("Instituição Certificadora: ");
                     String inst = entrada.nextLine();
-                    
+
                     System.out.print("Data de Obtenção (Use o formato AAAA-MM-DD): ");
                     String dataStr = entrada.nextLine();
-                    LocalDate dataObtencao = LocalDate.parse(dataStr); 
+                    LocalDate dataObtencao = LocalDate.parse(dataStr);
 
-                    Certificacao novaCert = new Certificacao(); 
-                    
-                    novaCert.setNumeroRegistro(numReg); 
-                    novaCert.setDataObtencao(dataObtencao); 
-                    novaCert.setInstituicaoCertificadora(inst); 
-                    novaCert.setVeterinario(vet); 
-                    novaCert.setEspecialidade(esp); 
+                    Certificacao novaCert = new Certificacao();
 
-                    repositorioDeCertificacao.salvar(novaCert); 
-                    
+                    novaCert.setNumeroRegistro(numReg);
+                    novaCert.setDataObtencao(dataObtencao);
+                    novaCert.setInstituicaoCertificadora(inst);
+                    novaCert.setVeterinario(vet);
+                    novaCert.setEspecialidade(esp);
+
+                    repositorioDeCertificacao.salvar(novaCert);
+
                     break;
-                
+
                 case 2:
                     System.out.println("--- Lista de Todas as Certificações ---");
-                    List<Certificacao> certs = repositorioDeCertificacao.ListarCertificacao(); 
-                    
+                    List<Certificacao> certs = repositorioDeCertificacao.ListarCertificacao();
+
                     if (certs == null || certs.isEmpty()) {
                         System.out.println("Nenhuma certificação cadastrada.");
                     } else {
                         for (Certificacao cert : certs) {
                             System.out.println("--------------------");
-                            System.out.println("Nº Registro: " + cert.getNumeroRegistro()); 
-                            System.out.println("Veterinário: " + (cert.getVeterinario() != null ? cert.getVeterinario().getNome() : "N/A")); 
-                            System.out.println("Especialidade: " + (cert.getEspecialidade() != null ? cert.getEspecialidade().getNome() : "N/A")); 
-                            System.out.println("Instituição: " + cert.getInstituicaoCertificadora()); 
-                            System.out.println("Data: " + cert.getDataObtencao()); 
+                            System.out.println("Nº Registro: " + cert.getNumeroRegistro());
+                            System.out.println("Veterinário: " + (cert.getVeterinario() != null ? cert.getVeterinario().getNome() : "N/A"));
+                            System.out.println("Especialidade: " + (cert.getEspecialidade() != null ? cert.getEspecialidade().getNome() : "N/A"));
+                            System.out.println("Instituição: " + cert.getInstituicaoCertificadora());
+                            System.out.println("Data: " + cert.getDataObtencao());
                         }
                         System.out.println("--------------------");
                     }
                     break;
-                
+
                 case 3:
                     System.out.println("--- Buscar Certificação por Número ---");
                     System.out.print("Digite o Número do Registro: ");
                     String numBusca = entrada.nextLine();
-                    
-                    Certificacao certEncontrada = repositorioDeCertificacao.BuscarNumeroRegistro(numBusca); 
-                    
+
+                    Certificacao certEncontrada = repositorioDeCertificacao.BuscarNumeroRegistro(numBusca);
+
                     if (certEncontrada != null) {
                         System.out.println("Certificação encontrada:");
-                        System.out.println("Nº Registro: " + certEncontrada.getNumeroRegistro()); 
-                        System.out.println("Veterinário: " + (certEncontrada.getVeterinario() != null ? certEncontrada.getVeterinario().getNome() : "N/A")); 
-                        System.out.println("Especialidade: " + (certEncontrada.getEspecialidade() != null ? certEncontrada.getEspecialidade().getNome() : "N/A")); 
-                        System.out.println("Instituição: " + certEncontrada.getInstituicaoCertificadora()); 
-                        System.out.println("Data: " + certEncontrada.getDataObtencao()); 
+                        System.out.println("Nº Registro: " + certEncontrada.getNumeroRegistro());
+                        System.out.println("Veterinário: " + (certEncontrada.getVeterinario() != null ? certEncontrada.getVeterinario().getNome() : "N/A"));
+                        System.out.println("Especialidade: " + (certEncontrada.getEspecialidade() != null ? certEncontrada.getEspecialidade().getNome() : "N/A"));
+                        System.out.println("Instituição: " + certEncontrada.getInstituicaoCertificadora());
+                        System.out.println("Data: " + certEncontrada.getDataObtencao());
                     } else {
                         System.out.println("Certificação com o registro " + numBusca + " não encontrada.");
                     }
@@ -1005,18 +1035,18 @@ public class SistemaClinicaVet {
                     System.out.println("--- Listar Certificações por Veterinário ---");
                     System.out.print("Digite o CRMV do Veterinário: ");
                     String crmvBusca = entrada.nextLine();
-                    
-                    List<Certificacao> certsVet = repositorioDeCertificacao.BuscarPorVet(crmvBusca); 
-                    
+
+                    List<Certificacao> certsVet = repositorioDeCertificacao.BuscarPorVet(crmvBusca);
+
                     if (certsVet == null || certsVet.isEmpty()) {
-                        System.out.println("Nenhuma certificação encontrada para o CRMV: " + crmvBusca);
+                        System.out.println("Nenhuma certificação encontrada para o : " + crmvBusca);
                     } else {
                         System.out.println("Certificações encontradas para " + crmvBusca + ":");
                         for (Certificacao cert : certsVet) {
                             System.out.println("--------------------");
-                            System.out.println("Nº Registro: " + cert.getNumeroRegistro()); 
+                            System.out.println("Nº Registro: " + cert.getNumeroRegistro());
                             System.out.println("Especialidade: " + (cert.getEspecialidade() != null ? cert.getEspecialidade().getNome() : "N/A")); //
-                            System.out.println("Instituição: " + cert.getInstituicaoCertificadora()); 
+                            System.out.println("Instituição: " + cert.getInstituicaoCertificadora());
                         }
                         System.out.println("--------------------");
                     }
@@ -1025,7 +1055,7 @@ public class SistemaClinicaVet {
                 case 5:
                     System.out.println("--- Excluir Certificação ---");
                     System.out.print("Digite o Número do Registro a excluir: ");
-                    String idDel = entrada.nextLine(); 
+                    String idDel = entrada.nextLine();
 
                     System.out.println("Tem certeza que deseja excluir esta certificação? (S/N)");
                     String confirmacao = entrada.nextLine();
@@ -1037,16 +1067,17 @@ public class SistemaClinicaVet {
                         System.out.println("Exclusão cancelada.");
                     }
                     break;
-                
+
                 case 0:
                     sair = true;
                     System.out.println("Voltando ao menu principal...");
                     break;
-                
+
                 default:
                     System.out.println("Opção inválida! Tente novamente.");
                     break;
             }
         }
     }
-    
+}
+
