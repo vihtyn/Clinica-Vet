@@ -110,9 +110,6 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
 
     @Override
      public List<Consulta> BuscarPorAnimal(int id) {
-
-
-
     List<Consulta> consultas = new ArrayList<>();
     String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta co INNER JOIN Animal a ON co.id_animal = a.ID INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV WHERE co.id_animal = ?";
 
@@ -148,11 +145,8 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
     }
         return consultas;
     }
-@Override
-        public void atualizarConsulta(Consulta consulta) {
-
-
-
+    @Override
+    public void atualizarConsulta(Consulta consulta) {
     String sql = "UPDATE consulta SET diagnostico = ?, id_animal = ?, CRMV_veterinario = ? WHERE id = ?";
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
@@ -171,11 +165,8 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
     }
 }
 
-@Override
-        public boolean deletarConsulta(int id) {
-
-
-
+    @Override
+    public boolean deletarConsulta(int id) {
     String sql = "DELETE FROM consulta WHERE id = ?";
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
@@ -187,7 +178,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
     } catch (Exception e) {
         System.err.println("Erro ao deletar consulta: " + e.getMessage());
         return false;
+        }
     }
-}
 }
 
