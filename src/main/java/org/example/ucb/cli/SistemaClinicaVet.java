@@ -16,6 +16,7 @@ public class SistemaClinicaVet {
     private static RepositorioDeAnimal repositorioDeAnimal;
     private static RepositorioDeDono repositorioDeDono;
     private static RepositorioDeVeterinario repositorioDeVeterinario;
+    private static RepositorioDeCertificacao repositorioDeCertificacao;
 
     public static void main(String[] args) {
         try {
@@ -35,6 +36,7 @@ public class SistemaClinicaVet {
         repositorioDeAnimal = new RepositorioDeAnimalSQL();
         repositorioDeDono = new RepositorioDeDonoSQL();
         repositorioDeVeterinario = new RepositorioDeVeterinarioSQL();
+        repositorioDeCertificacao = new RepositorioDeCertificacaoSQL()
     }
 
     private static void exibirMenuPrincipal() {
@@ -616,4 +618,151 @@ public class SistemaClinicaVet {
             }
         }
     }
-}
+            private static void exibirMenuCertificacoes() {
+            boolean sair = false;
+    
+            while (!sair) {
+                System.out.println("\n--- Menu de Certificações ---");
+                System.out.println("1. Cadastrar Certificação (Ligar Vet a Especialidade)");
+                System.out.println("2. Listar Todas as Certificações");
+                System.out.println("3. Buscar Certificação por Número de Registro");
+                System.out.println("4. Listar Certificações por Veterinário (CRMV)");
+                System.out.println("5. Excluir Certificação");
+                System.out.println("0. Voltar ao Menu Principal");
+                System.out.print("Escolha uma opção: ");
+    
+                int opcao = entrada.nextInt();
+                entrada.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("--- Cadastrar (Associar) Certificação ---");
+
+                    System.out.print("Digite o CRMV do Veterinário: ");
+                    String crmv = entrada.nextLine();
+                    Veterinario vet = repositorioDeVeterinario.BuscarVet(crmv); 
+
+                    if (vet == null) {
+                        System.out.println("Erro: Veterinário com CRMV " + crmv + " não encontrado.");
+                        break; 
+                    }
+                    System.out.println("Veterinário encontrado: " + vet.getNome()); 
+
+                    System.out.print("Digite o ID da Especialidade (que é auto_increment): ");
+                    int espId = entrada.nextInt();
+                    entrada.nextLine(); 
+                    Especialidade esp = repositorioDeEspecialidade.BuscarEspecialidade(espId); 
+
+                    if (esp == null) {
+                        System.out.println("Erro: Especialidade com ID " + espId + " não encontrada.");
+                        break; 
+                    }
+                    System.out.println("Especialidade encontrada: " + esp.getNome()); //
+                    System.out.print("Número do Registro (Ex: 'REG-DF-24-001A'): ");
+                    String numReg = entrada.nextLine();
+                    System.out.print("Instituição Certificadora: ");
+                    String inst = entrada.nextLine();
+                    
+                    System.out.print("Data de Obtenção (Use o formato AAAA-MM-DD): ");
+                    String dataStr = entrada.nextLine();
+                    LocalDate dataObtencao = LocalDate.parse(dataStr); 
+
+                    Certificacao novaCert = new Certificacao(); 
+                    
+                    novaCert.setNumeroRegistro(numReg); 
+                    novaCert.setDataObtencao(dataObtencao); 
+                    novaCert.setInstituicaoCertificadora(inst); 
+                    novaCert.setVeterinario(vet); 
+                    novaCert.setEspecialidade(esp); 
+
+                    repositorioDeCertificacao.salvar(novaCert); 
+                    
+                    break;
+                
+                case 2:
+                    System.out.println("--- Lista de Todas as Certificações ---");
+                    List<Certificacao> certs = repositorioDeCertificacao.ListarCertificacao(); 
+                    
+                    if (certs == null || certs.isEmpty()) {
+                        System.out.println("Nenhuma certificação cadastrada.");
+                    } else {
+                        for (Certificacao cert : certs) {
+                            System.out.println("--------------------");
+                            System.out.println("Nº Registro: " + cert.getNumeroRegistro()); 
+                            System.out.println("Veterinário: " + (cert.getVeterinario() != null ? cert.getVeterinario().getNome() : "N/A")); 
+                            System.out.println("Especialidade: " + (cert.getEspecialidade() != null ? cert.getEspecialidade().getNome() : "N/A")); 
+                            System.out.println("Instituição: " + cert.getInstituicaoCertificadora()); 
+                            System.out.println("Data: " + cert.getDataObtencao()); 
+                        }
+                        System.out.println("--------------------");
+                    }
+                    break;
+                
+                case 3:
+                    System.out.println("--- Buscar Certificação por Número ---");
+                    System.out.print("Digite o Número do Registro: ");
+                    String numBusca = entrada.nextLine();
+                    
+                    Certificacao certEncontrada = repositorioDeCertificacao.BuscarNumeroRegistro(numBusca); 
+                    
+                    if (certEncontrada != null) {
+                        System.out.println("Certificação encontrada:");
+                        System.out.println("Nº Registro: " + certEncontrada.getNumeroRegistro()); 
+                        System.out.println("Veterinário: " + (certEncontrada.getVeterinario() != null ? certEncontrada.getVeterinario().getNome() : "N/A")); 
+                        System.out.println("Especialidade: " + (certEncontrada.getEspecialidade() != null ? certEncontrada.getEspecialidade().getNome() : "N/A")); 
+                        System.out.println("Instituição: " + certEncontrada.getInstituicaoCertificadora()); 
+                        System.out.println("Data: " + certEncontrada.getDataObtencao()); 
+                    } else {
+                        System.out.println("Certificação com o registro " + numBusca + " não encontrada.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("--- Listar Certificações por Veterinário ---");
+                    System.out.print("Digite o CRMV do Veterinário: ");
+                    String crmvBusca = entrada.nextLine();
+                    
+                    List<Certificacao> certsVet = repositorioDeCertificacao.BuscarPorVet(crmvBusca); 
+                    
+                    if (certsVet == null || certsVet.isEmpty()) {
+                        System.out.println("Nenhuma certificação encontrada para o CRMV: " + crmvBusca);
+                    } else {
+                        System.out.println("Certificações encontradas para " + crmvBusca + ":");
+                        for (Certificacao cert : certsVet) {
+                            System.out.println("--------------------");
+                            System.out.println("Nº Registro: " + cert.getNumeroRegistro()); 
+                            System.out.println("Especialidade: " + (cert.getEspecialidade() != null ? cert.getEspecialidade().getNome() : "N/A")); //
+                            System.out.println("Instituição: " + cert.getInstituicaoCertificadora()); 
+                        }
+                        System.out.println("--------------------");
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("--- Excluir Certificação ---");
+                    System.out.print("Digite o Número do Registro a excluir: ");
+                    String idDel = entrada.nextLine(); 
+
+                    System.out.println("Tem certeza que deseja excluir esta certificação? (S/N)");
+                    String confirmacao = entrada.nextLine();
+
+                    if (confirmacao.equalsIgnoreCase("S")) {
+                        repositorioDeCertificacao.deletarCertificacao(idDel); //
+                        System.out.println("Certificação deletada (se existia).");
+                    } else {
+                        System.out.println("Exclusão cancelada.");
+                    }
+                    break;
+                
+                case 0:
+                    sair = true;
+                    System.out.println("Voltando ao menu principal...");
+                    break;
+                
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+                    break;
+            }
+        }
+    }
+    
