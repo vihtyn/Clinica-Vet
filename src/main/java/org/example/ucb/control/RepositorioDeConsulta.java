@@ -9,5 +9,5 @@ public interface RepositorioDeConsulta {
     List<Consulta> ListarConsulta();
     List<Consulta> BuscarPorAnimal(int id);
     void atualizarConsulta(Consulta consulta);
-    boolean deletarCertificacao(int id);
+    boolean deletarConsulta(int id);
 }
