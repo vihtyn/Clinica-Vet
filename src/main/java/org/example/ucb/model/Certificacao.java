@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Certificacao {
 
-    private int NumeroRegistro;
+    private String NumeroRegistro;
     private Date DataObtencao;
     private String InstituicaoCertificadora;
     private Veterinario veterinario;
@@ -14,18 +14,18 @@ public class Certificacao {
 
     }
 
-    public Certificacao(int NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario) {
+    public Certificacao(String NumeroRegistro, Date DataObtencao,  String InstituicaoCertificadora, Veterinario veterinario) {
         this.NumeroRegistro = NumeroRegistro;
         this.DataObtencao = DataObtencao;
         this.InstituicaoCertificadora = InstituicaoCertificadora;
         this.veterinario = veterinario;
     }
 
-    public int getNumeroRegistro() {
+    public String getNumeroRegistro() {
         return NumeroRegistro;
     }
 
-    public void setNumeroRegistro(int NumeroRegistro) {
+    public void setNumeroRegistro(String NumeroRegistro) {
         this.NumeroRegistro = NumeroRegistro;
     }
 

@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface RepositorioDeCertificacao {
     void salvar(Certificacao certificacao);
-    Certificacao BuscarNumeroRegistro(int numeroregistro);
+    Certificacao BuscarNumeroRegistro(String numeroregistro);
     List<Certificacao> ListarCertificacao();
     List<Certificacao> BuscarPorVet(String crmv);
-    boolean deletarCertificacao(int numeroRegistro);
+    boolean deletarCertificacao(String numeroRegistro);
 
 }

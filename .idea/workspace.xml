@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86cf361c-e088-429f-9f8d-71bb72083e6f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/cli/SistemaClinicaVet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/cli/SistemaClinicaVet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeDonoSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeDonoSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeVeterinarioSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeVeterinarioSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Dono.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Dono.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Veterinario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Veterinario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeConsultaSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeCertificacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/control/RepositorioDeCertificacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeCertificacaoSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeCertificacaoSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Certificacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Certificacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Consulta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/model/Consulta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +55,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "Project",
