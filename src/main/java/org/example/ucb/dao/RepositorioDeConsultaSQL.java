@@ -14,7 +14,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
 
     @Override
     public void salvar(Consulta consulta) {
-            String sql = "INSERT INTO consulta (diagnostico, id_animal, CRMV_veterinario) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO consulta.html (diagnostico, id_animal, CRMV_veterinario) VALUES (?, ?, ?)";
 
             try (Connection conexao = new ConexaoMySQL().obterConexao();
                  PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -33,13 +33,13 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
                 }
                 System.out.println("Consulta salva com sucesso! ID: " + consulta.getid());
             } catch (Exception e) {
-                System.err.println("Erro ao salvar consulta: " + e.getMessage());
+                System.err.println("Erro ao salvar consulta.html: " + e.getMessage());
             }
     }
 
     @Override
     public Consulta BuscarConsulta(int id) {
-        String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta co " +
+        String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta.html co " +
                 "INNER JOIN Animal a ON co.id_animal = a.ID " +
                 "INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV WHERE co.id = ?";
 
@@ -70,7 +70,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
                 }
             }
         } catch (Exception e) {
-        System.err.println("Erro ao buscar consulta por ID: " + e.getMessage());
+        System.err.println("Erro ao buscar consulta.html por ID: " + e.getMessage());
         }
         return consulta;
     }
@@ -78,7 +78,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
     @Override
     public List<Consulta> ListarConsulta() {
         List<Consulta> consultas = new ArrayList<>();
-        String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta co INNER JOIN Animal a ON co.id_animal = a.ID INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV";
+        String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta.html co INNER JOIN Animal a ON co.id_animal = a.ID INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV";
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
              Statement stmt = conexao.createStatement();
@@ -114,7 +114,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
     @Override
      public List<Consulta> BuscarPorAnimal(int id) {
     List<Consulta> consultas = new ArrayList<>();
-    String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta co INNER JOIN Animal a ON co.id_animal = a.ID INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV WHERE co.id_animal = ?";
+    String sql = "SELECT co.*, a.Nome as animal_nome, v.nome as vet_nome FROM consulta.html co INNER JOIN Animal a ON co.id_animal = a.ID INNER JOIN veterinario v ON co.CRMV_veterinario = v.CRMV WHERE co.id_animal = ?";
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
     PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -144,13 +144,13 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
             }
         }
     } catch (Exception e) {
-        System.err.println("Erro ao buscar consulta por animal: " + e.getMessage());
+        System.err.println("Erro ao buscar consulta.html por animal: " + e.getMessage());
     }
         return consultas;
     }
     @Override
     public void atualizarConsulta(Consulta consulta) {
-    String sql = "UPDATE consulta SET diagnostico = ?, id_animal = ?, CRMV_veterinario = ? WHERE id = ?";
+    String sql = "UPDATE consulta.html SET diagnostico = ?, id_animal = ?, CRMV_veterinario = ? WHERE id = ?";
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
     PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -164,13 +164,13 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
         System.out.println("Cosulta ID : " + consulta.getid() + " atualizada com sucesso!!");
 
     } catch (Exception e) {
-        System.err.println("Falaha ao atualizar consulta " + e.getMessage());
+        System.err.println("Falaha ao atualizar consulta.html " + e.getMessage());
     }
 }
 
     @Override
     public boolean deletarConsulta(int id) {
-    String sql = "DELETE FROM consulta WHERE id = ?";
+    String sql = "DELETE FROM consulta.html WHERE id = ?";
 
         try (Connection conexao = new ConexaoMySQL().obterConexao();
     PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -179,7 +179,7 @@ public class RepositorioDeConsultaSQL implements RepositorioDeConsulta {
         int linhasAfetadas = stmt.executeUpdate();
         return linhasAfetadas > 0;
     } catch (Exception e) {
-        System.err.println("Erro ao deletar consulta: " + e.getMessage());
+        System.err.println("Erro ao deletar consulta.html: " + e.getMessage());
         return false;
         }
     }

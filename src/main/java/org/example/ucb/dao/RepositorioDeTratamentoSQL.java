@@ -168,7 +168,7 @@ public class RepositorioDeTratamentoSQL implements RepositorioDeTratamento {
                 tratamentos.add(tratamento);
             }
         } catch (Exception e) {
-            System.err.println("Erro ao buscar tratamentos por consulta: " + e.getMessage());
+            System.err.println("Erro ao buscar tratamentos por consulta.html: " + e.getMessage());
 
         } finally {
             try {
