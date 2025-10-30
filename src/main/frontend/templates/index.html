@@ -23,23 +23,6 @@
             margin: 0 auto;
         }
 
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 15px 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
         .nav-link {
             padding: 12px 25px;
             text-decoration: none;
@@ -50,15 +33,14 @@
             cursor: pointer;
         }
 
-        .nav-link:hover {
+        .nav-link.btn:hover {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             transform: translateY(-2px);
         }
 
         .nav-link.ativo {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            color: #667eea;
         }
 
         .page {
@@ -72,6 +54,7 @@
         .hero {
             text-align: center;
             margin-bottom: 60px;
+            padding-top: 40px;
         }
 
         .hero h1 {
@@ -97,7 +80,7 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-bottom: 50px;
         }
@@ -138,30 +121,6 @@
         .card p {
             color: #6b7280;
             line-height: 1.6;
-        }
-
-        .welcome-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 50px;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .welcome-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .welcome-card h2 {
-            font-size: 2rem;
-            color: #1f2937;
-            margin-bottom: 15px;
-        }
-
-        .welcome-card p {
-            color: #6b7280;
-            font-size: 1.1rem;
         }
 
         .crud-container {
@@ -354,19 +313,7 @@
 </head>
 <body>
 <div class="container">
-    <nav>
-        <div class="nav-links">
-            <a class="nav-link ativo" data-page="home">🏠 Home</a>
-            <a class="nav-link" data-page="donos">👥 Donos</a>
-            <a class="nav-link" data-page="animais">🐕 Animais</a>
-            <a class="nav-link" data-page="consultas">📅 Consultas</a>
-            <a class="nav-link" data-page="tratamentos">💉 Tratamentos</a>
-            <a class="nav-link" data-page="veterinarios">🩺 Veterinários</a>
-            <a class="nav-link" data-page="certificacoes">🏆 Certificações</a>
-        </div>
-    </nav>
 
-    <!-- HOME -->
     <div id="home" class="page active">
         <div class="hero">
             <h1>🐾 Clínica Veterinária</h1>
@@ -375,31 +322,27 @@
         </div>
 
         <div class="cards-grid">
-            <div class="card"><div class="card-icon">👥</div><h3>Gestão de Donos</h3><p>Cadastre e gerencie todos os tutores dos animais</p></div>
-            <div class="card"><div class="card-icon">🐕</div><h3>Registro de Animais</h3><p>Controle completo dos pets atendidos na clínica</p></div>
-            <div class="card"><div class="card-icon">📅</div><h3>Agendamento de Consultas</h3><p>Organize e acompanhe todas as consultas</p></div>
-            <div class="card"><div class="card-icon">🩺</div><h3>Prontuário Veterinário</h3><p>Mantenha o histórico médico de cada paciente</p></div>
-            <div class="card"><div class="card-icon">💉</div><h3>Controle de Tratamentos</h3><p>Gerencie medicações e procedimentos</p></div>
-            <div class="card"><div class="card-icon">🏆</div><h3>Certificações</h3><p>Registre qualificações da equipe</p></div>
-        </div>
-
-        <div class="welcome-card">
-            <div class="welcome-icon">📋</div>
-            <h2>Bem-vindo ao Sistema</h2>
-            <p>Acesse as funcionalidades através do menu acima</p>
+            <div class="card nav-link" data-page="donos"><div class="card-icon">👥</div><h3>Gestão de Donos</h3><p>Cadastre e gerencie todos os tutores dos animais</p></div>
+            <div class="card nav-link" data-page="animais"><div class="card-icon">🐕</div><h3>Registro de Animais</h3><p>Controle completo dos pets atendidos na clínica</p></div>
+            <div class="card nav-link" data-page="consultas"><div class="card-icon">📅</div><h3>Agendamento de Consultas</h3><p>Organize e acompanhe todas as consultas</p></div>
+            <div class="card nav-link" data-page="veterinarios"><div class="card-icon">🩺</div><h3>Equipe Veterinária</h3><p>Gerencie os veterinários e suas especialidades</p></div>
+            <div class="card nav-link" data-page="tratamentos"><div class="card-icon">💉</div><h3>Controle de Tratamentos</h3><p>Gerencie medicações e procedimentos</p></div>
+            <div class="card nav-link" data-page="certificacoes"><div class="card-icon">🏆</div><h3>Certificações</h3><p>Registre qualificações da equipe</p></div>
         </div>
     </div>
 
-    <!-- DONOS -->
     <div id="donos" class="page">
         <div class="crud-container">
             <div class="crud-header">
                 <h2>👥 Gestão de Donos</h2>
-                <button class="btn btn-primary" onclick="toggleForm('donoForm')">➕ Novo Dono</button>
+                <div>
+                    <button class="btn btn-secondary nav-link" data-page="home">🏠 Voltar</button>
+                    <button class="btn btn-primary" onclick="toggleForm('donoForm')">➕ Novo Dono</button>
+                </div>
             </div>
 
             <div id="donoForm" class="form-section">
-                <h3 style="margin-bottom: 20px;">Cadastrar Dono</h3>
+                <h3 style="margin-bottom: 20px;">Formulário de Dono</h3>
                 <form onsubmit="saveDono(event)">
                     <input type="hidden" id="donoId">
                     <div class="form-grid">
@@ -440,16 +383,18 @@
         </div>
     </div>
 
-    <!-- ANIMAIS -->
     <div id="animais" class="page">
         <div class="crud-container">
             <div class="crud-header">
                 <h2>🐕 Registro de Animais</h2>
-                <button class="btn btn-primary" onclick="toggleForm('animalForm')">➕ Novo Animal</button>
+                <div>
+                    <button class="btn btn-secondary nav-link" data-page="home">🏠 Voltar</button>
+                    <button class="btn btn-primary" onclick="toggleForm('animalForm')">➕ Novo Animal</button>
+                </div>
             </div>
 
             <div id="animalForm" class="form-section">
-                <h3 style="margin-bottom: 20px;">Cadastrar Animal</h3>
+                <h3 style="margin-bottom: 20px;">Formulário de Animal</h3>
                 <form onsubmit="saveAnimal(event)">
                     <input type="hidden" id="animalId">
                     <div class="form-grid">
@@ -476,7 +421,7 @@
                             <input type="text" id="animalIdade">
                         </div>
                         <div class="form-group">
-                            <label>Dono *</label>
+                            <label>Dono (ID) *</label>
                             <input type="text" id="animalDono" required>
                         </div>
                     </div>
@@ -489,32 +434,34 @@
 
             <table>
                 <thead>
-                <tr><th>ID</th><th>Nome</th><th>Espécie</th><th>Raça</th><th>Dono</th><th>Ações</th></tr>
+                <tr><th>ID</th><th>Nome</th><th>Espécie</th><th>Raça</th><th>Dono (ID)</th><th>Ações</th></tr>
                 </thead>
                 <tbody id="animaisList"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- CONSULTAS -->
     <div id="consultas" class="page">
         <div class="crud-container">
             <div class="crud-header">
                 <h2>📅 Agendamento de Consultas</h2>
-                <button class="btn btn-primary" onclick="toggleForm('consultaForm')">➕ Nova Consulta</button>
+                <div>
+                    <button class="btn btn-secondary nav-link" data-page="home">🏠 Voltar</button>
+                    <button class="btn btn-primary" onclick="toggleForm('consultaForm')">➕ Nova Consulta</button>
+                </div>
             </div>
 
             <div id="consultaForm" class="form-section">
-                <h3 style="margin-bottom: 20px;">Cadastrar Consulta</h3>
+                <h3 style="margin-bottom: 20px;">Formulário de Consulta</h3>
                 <form onsubmit="saveConsulta(event)">
                     <input type="hidden" id="consultaId">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Animal *</label>
+                            <label>Animal (ID) *</label>
                             <input type="text" id="consultaAnimal" required>
                         </div>
                         <div class="form-group">
-                            <label>Veterinário *</label>
+                            <label>Veterinário (ID) *</label>
                             <input type="text" id="consultaVet" required>
                         </div>
                         <div class="form-group">
@@ -544,28 +491,30 @@
 
             <table>
                 <thead>
-                <tr><th>ID</th><th>Animal</th><th>Veterinário</th><th>Data</th><th>Horário</th><th>Tipo</th><th>Ações</th></tr>
+                <tr><th>ID</th><th>Animal (ID)</th><th>Veterinário (ID)</th><th>Data</th><th>Horário</th><th>Tipo</th><th>Ações</th></tr>
                 </thead>
                 <tbody id="consultasList"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- TRATAMENTOS -->
     <div id="tratamentos" class="page">
         <div class="crud-container">
             <div class="crud-header">
                 <h2>💉 Controle de Tratamentos</h2>
-                <button class="btn btn-primary" onclick="toggleForm('tratamentoForm')">➕ Novo Tratamento</button>
+                <div>
+                    <button class="btn btn-secondary nav-link" data-page="home">🏠 Voltar</button>
+                    <button class="btn btn-primary" onclick="toggleForm('tratamentoForm')">➕ Novo Tratamento</button>
+                </div>
             </div>
 
             <div id="tratamentoForm" class="form-section">
-                <h3 style="margin-bottom: 20px;">Cadastrar Tratamento</h3>
+                <h3 style="margin-bottom: 20px;">Formulário de Tratamento</h3>
                 <form onsubmit="saveTratamento(event)">
                     <input type="hidden" id="tratamentoId">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Animal *</label>
+                            <label>Animal (ID) *</label>
                             <input type="text" id="tratamentoAnimal" required>
                         </div>
                         <div class="form-group">
@@ -594,23 +543,25 @@
 
             <table>
                 <thead>
-                <tr><th>ID</th><th>Animal</th><th>Medicamento</th><th>Dosagem</th><th>Frequência</th><th>Início</th><th>Ações</th></tr>
+                <tr><th>ID</th><th>Animal (ID)</th><th>Medicamento</th><th>Dosagem</th><th>Frequência</th><th>Início</th><th>Ações</th></tr>
                 </thead>
                 <tbody id="tratamentosList"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- VETERINÁRIOS -->
     <div id="veterinarios" class="page">
         <div class="crud-container">
             <div class="crud-header">
                 <h2>🩺 Cadastro de Veterinários</h2>
-                <button class="btn btn-primary" onclick="toggleForm('vetForm')">➕ Novo Veterinário</button>
+                <div>
+                    <button class="btn btn-secondary nav-link" data-page="home">🏠 Voltar</button>
+                    <button class="btn btn-primary" onclick="toggleForm('vetForm')">➕ Novo Veterinário</button>
+                </div>
             </div>
 
             <div id="vetForm" class="form-section">
-                <h3 style="margin-bottom: 20px;">Cadastrar Veterinário</h3>
+                <h3 style="margin-bottom: 20px;">Formulário de Veterinário</h3>
                 <form onsubmit="saveVet(event)">
                     <input type="hidden" id="vetId">
                     <div class="form-grid">
@@ -647,21 +598,23 @@
         </div>
     </div>
 
-    <!-- CERTIFICAÇÕES -->
     <div id="certificacoes" class="page">
         <div class="crud-container">
             <div class="crud-header">
                 <h2>🏆 Certificações</h2>
-                <button class="btn btn-primary" onclick="toggleForm('certForm')">➕ Nova Certificação</button>
+                <div>
+                    <button class="btn btn-secondary nav-link" data-page="home">🏠 Voltar</button>
+                    <button class="btn btn-primary" onclick="toggleForm('certForm')">➕ Nova Certificação</button>
+                </div>
             </div>
 
             <div id="certForm" class="form-section">
-                <h3 style="margin-bottom: 20px;">Cadastrar Certificação</h3>
+                <h3 style="margin-bottom: 20px;">Formulário de Certificação</h3>
                 <form onsubmit="saveCert(event)">
                     <input type="hidden" id="certId">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Veterinário *</label>
+                            <label>Veterinário (ID) *</label>
                             <input type="text" id="certVet" required>
                         </div>
                         <div class="form-group">
@@ -686,7 +639,7 @@
 
             <table>
                 <thead>
-                <tr><th>ID</th><th>Veterinário</th><th>Certificação</th><th>Instituição</th><th>Data</th><th>Ações</th></tr>
+                <tr><th>ID</th><th>Veterinário (ID)</th><th>Certificação</th><th>Instituição</th><th>Data</th><th>Ações</th></tr>
                 </thead>
                 <tbody id="certsList"></tbody>
             </table>
@@ -695,41 +648,51 @@
 </div>
 
 <script>
-    // Dados simulados
+    // --- BANCO DE DADOS SIMULADO (EM MEMÓRIA) ---
     let donos = [];
     let animais = [];
     let consultas = [];
     let tratamentos = [];
     let veterinarios = [];
     let certificacoes = [];
+
+    // Simula o AUTO_INCREMENT
     let nextId = {donos: 1, animais: 1, consultas: 1, tratamentos: 1, veterinarios: 1, certificacoes: 1};
 
-    // Navegação
+    // --- NAVEGAÇÃO ---
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function() {
             const page = this.dataset.page;
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(page).classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('ativo'));
-            this.classList.add('ativo');
         });
     });
 
+    // --- FUNÇÕES GLOBAIS DE FORMULÁRIO ---
     function toggleForm(formId) {
         document.getElementById(formId).classList.toggle('active');
     }
 
     function cancelForm(formId) {
-        document.getElementById(formId).classList.remove('active');
-        document.getElementById(formId).querySelector('form').reset();
+        const formElement = document.getElementById(formId);
+        formElement.classList.remove('active');
+        formElement.querySelector('form').reset();
+        // Limpa o ID oculto para garantir que o próximo salvamento seja um "novo"
+        const hiddenId = formElement.querySelector('input[type="hidden"]');
+        if (hiddenId) {
+            hiddenId.value = '';
+        }
     }
 
-    // DONOS
+    // ======================================================
+    // =================== CRUD DONOS =======================
+    // ======================================================
     function saveDono(e) {
         e.preventDefault();
-        const id = document.getElementById('donoId').value;
+        const idInput = document.getElementById('donoId');
+        const id = idInput.value;
         const dono = {
-            id: id || nextId.donos++,
+            id: id ? parseInt(id) : nextId.donos++,
             nome: document.getElementById('donoNome').value,
             cpf: document.getElementById('donoCpf').value,
             telefone: document.getElementById('donoTelefone').value,
@@ -737,7 +700,7 @@
             endereco: document.getElementById('donoEndereco').value
         };
 
-        if(id) {
+        if (id) {
             const index = donos.findIndex(d => d.id == id);
             donos[index] = dono;
         } else {
@@ -750,11 +713,10 @@
 
     function renderDonos() {
         const tbody = document.getElementById('donosList');
-        if(donos.length === 0) {
+        if (donos.length === 0) {
             tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhum dono cadastrado</td></tr>';
             return;
         }
-
         tbody.innerHTML = donos.map(d => `
             <tr>
                 <td>${d.id}</td>
@@ -767,4 +729,386 @@
                     <button class="btn btn-danger btn-sm" onclick="deleteDono(${d.id})">🗑️ Excluir</button>
                 </td>
             </tr>
-        `
+        `).join('');
+    }
+
+    function editDono(id) {
+        const dono = donos.find(d => d.id == id);
+        if (!dono) return;
+
+        document.getElementById('donoId').value = dono.id;
+        document.getElementById('donoNome').value = dono.nome;
+        document.getElementById('donoCpf').value = dono.cpf;
+        document.getElementById('donoTelefone').value = dono.telefone;
+        document.getElementById('donoEmail').value = dono.email;
+        document.getElementById('donoEndereco').value = dono.endereco;
+
+        document.getElementById('donoForm').classList.add('active');
+    }
+
+    function deleteDono(id) {
+        if (confirm('Tem certeza que deseja excluir este dono?')) {
+            donos = donos.filter(d => d.id != id);
+            renderDonos();
+        }
+    }
+
+    // ======================================================
+    // =================== CRUD ANIMAIS =====================
+    // ======================================================
+    function saveAnimal(e) {
+        e.preventDefault();
+        const idInput = document.getElementById('animalId');
+        const id = idInput.value;
+        const animal = {
+            id: id ? parseInt(id) : nextId.animais++,
+            nome: document.getElementById('animalNome').value,
+            especie: document.getElementById('animalEspecie').value,
+            raca: document.getElementById('animalRaca').value,
+            idade: document.getElementById('animalIdade').value,
+            donoId: document.getElementById('animalDono').value
+        };
+
+        if (id) {
+            const index = animais.findIndex(a => a.id == id);
+            animais[index] = animal;
+        } else {
+            animais.push(animal);
+        }
+
+        renderAnimais();
+        cancelForm('animalForm');
+    }
+
+    function renderAnimais() {
+        const tbody = document.getElementById('animaisList');
+        if (animais.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhum animal cadastrado</td></tr>';
+            return;
+        }
+        tbody.innerHTML = animais.map(a => `
+            <tr>
+                <td>${a.id}</td>
+                <td>${a.nome}</td>
+                <td>${a.especie}</td>
+                <td>${a.raca || '-'}</td>
+                <td>${a.donoId}</td>
+                <td class="action-buttons">
+                    <button class="btn btn-warning btn-sm" onclick="editAnimal(${a.id})">✏️ Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteAnimal(${a.id})">🗑️ Excluir</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function editAnimal(id) {
+        const animal = animais.find(a => a.id == id);
+        if (!animal) return;
+
+        document.getElementById('animalId').value = animal.id;
+        document.getElementById('animalNome').value = animal.nome;
+        document.getElementById('animalEspecie').value = animal.especie;
+        document.getElementById('animalRaca').value = animal.raca;
+        document.getElementById('animalIdade').value = animal.idade;
+        document.getElementById('animalDono').value = animal.donoId;
+
+        document.getElementById('animalForm').classList.add('active');
+    }
+
+    function deleteAnimal(id) {
+        if (confirm('Tem certeza que deseja excluir este animal?')) {
+            animais = animais.filter(a => a.id != id);
+            renderAnimais();
+        }
+    }
+
+    // ======================================================
+    // =================== CRUD CONSULTAS ===================
+    // ======================================================
+    function saveConsulta(e) {
+        e.preventDefault();
+        const idInput = document.getElementById('consultaId');
+        const id = idInput.value;
+        const consulta = {
+            id: id ? parseInt(id) : nextId.consultas++,
+            animalId: document.getElementById('consultaAnimal').value,
+            vetId: document.getElementById('consultaVet').value,
+            data: document.getElementById('consultaData').value,
+            hora: document.getElementById('consultaHora').value,
+            tipo: document.getElementById('consultaTipo').value
+        };
+
+        if (id) {
+            const index = consultas.findIndex(c => c.id == id);
+            consultas[index] = consulta;
+        } else {
+            consultas.push(consulta);
+        }
+
+        renderConsultas();
+        cancelForm('consultaForm');
+    }
+
+    function renderConsultas() {
+        const tbody = document.getElementById('consultasList');
+        if (consultas.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nenhuma consulta cadastrada</td></tr>';
+            return;
+        }
+        tbody.innerHTML = consultas.map(c => `
+            <tr>
+                <td>${c.id}</td>
+                <td>${c.animalId}</td>
+                <td>${c.vetId}</td>
+                <td>${c.data}</td>
+                <td>${c.hora}</td>
+                <td>${c.tipo}</td>
+                <td class="action-buttons">
+                    <button class="btn btn-warning btn-sm" onclick="editConsulta(${c.id})">✏️ Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteConsulta(${c.id})">🗑️ Excluir</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function editConsulta(id) {
+        const consulta = consultas.find(c => c.id == id);
+        if (!consulta) return;
+
+        document.getElementById('consultaId').value = consulta.id;
+        document.getElementById('consultaAnimal').value = consulta.animalId;
+        document.getElementById('consultaVet').value = consulta.vetId;
+        document.getElementById('consultaData').value = consulta.data;
+        document.getElementById('consultaHora').value = consulta.hora;
+        document.getElementById('consultaTipo').value = consulta.tipo;
+
+        document.getElementById('consultaForm').classList.add('active');
+    }
+
+    function deleteConsulta(id) {
+        if (confirm('Tem certeza que deseja excluir esta consulta?')) {
+            consultas = consultas.filter(c => c.id != id);
+            renderConsultas();
+        }
+    }
+
+    // ======================================================
+    // ================== CRUD TRATAMENTOS ==================
+    // ======================================================
+    function saveTratamento(e) {
+        e.preventDefault();
+        const idInput = document.getElementById('tratamentoId');
+        const id = idInput.value;
+        const tratamento = {
+            id: id ? parseInt(id) : nextId.tratamentos++,
+            animalId: document.getElementById('tratamentoAnimal').value,
+            medicamento: document.getElementById('tratamentoMed').value,
+            dosagem: document.getElementById('tratamentoDosagem').value,
+            frequencia: document.getElementById('tratamentoFreq').value,
+            dataInicio: document.getElementById('tratamentoInicio').value
+        };
+
+        if (id) {
+            const index = tratamentos.findIndex(t => t.id == id);
+            tratamentos[index] = tratamento;
+        } else {
+            tratamentos.push(tratamento);
+        }
+
+        renderTratamentos();
+        cancelForm('tratamentoForm');
+    }
+
+    function renderTratamentos() {
+        const tbody = document.getElementById('tratamentosList');
+        if (tratamentos.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nenhum tratamento cadastrado</td></tr>';
+            return;
+        }
+        tbody.innerHTML = tratamentos.map(t => `
+            <tr>
+                <td>${t.id}</td>
+                <td>${t.animalId}</td>
+                <td>${t.medicamento}</td>
+                <td>${t.dosagem}</td>
+                <td>${t.frequencia}</td>
+                <td>${t.dataInicio}</td>
+                <td class="action-buttons">
+                    <button class="btn btn-warning btn-sm" onclick="editTratamento(${t.id})">✏️ Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteTratamento(${t.id})">🗑️ Excluir</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function editTratamento(id) {
+        const tratamento = tratamentos.find(t => t.id == id);
+        if (!tratamento) return;
+
+        document.getElementById('tratamentoId').value = tratamento.id;
+        document.getElementById('tratamentoAnimal').value = tratamento.animalId;
+        document.getElementById('tratamentoMed').value = tratamento.medicamento;
+        document.getElementById('tratamentoDosagem').value = tratamento.dosagem;
+        document.getElementById('tratamentoFreq').value = tratamento.frequencia;
+        document.getElementById('tratamentoInicio').value = tratamento.dataInicio;
+
+        document.getElementById('tratamentoForm').classList.add('active');
+    }
+
+    function deleteTratamento(id) {
+        if (confirm('Tem certeza que deseja excluir este tratamento?')) {
+            tratamentos = tratamentos.filter(t => t.id != id);
+            renderTratamentos();
+        }
+    }
+
+    // ======================================================
+    // ================= CRUD VETERINÁRIOS ==================
+    // ======================================================
+    function saveVet(e) {
+        e.preventDefault();
+        const idInput = document.getElementById('vetId');
+        const id = idInput.value;
+        const vet = {
+            id: id ? parseInt(id) : nextId.veterinarios++,
+            nome: document.getElementById('vetNome').value,
+            crmv: document.getElementById('vetCrmv').value,
+            especialidade: document.getElementById('vetEspec').value,
+            telefone: document.getElementById('vetTelefone').value
+        };
+
+        if (id) {
+            const index = veterinarios.findIndex(v => v.id == id);
+            veterinarios[index] = vet;
+        } else {
+            veterinarios.push(vet);
+        }
+
+        renderVets();
+        cancelForm('vetForm');
+    }
+
+    function renderVets() {
+        const tbody = document.getElementById('vetsList');
+        if (veterinarios.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhum veterinário cadastrado</td></tr>';
+            return;
+        }
+        tbody.innerHTML = veterinarios.map(v => `
+            <tr>
+                <td>${v.id}</td>
+                <td>${v.nome}</td>
+                <td>${v.crmv}</td>
+                <td>${v.especialidade || '-'}</td>
+                <td>${v.telefone}</td>
+                <td class="action-buttons">
+                    <button class="btn btn-warning btn-sm" onclick="editVet(${v.id})">✏️ Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteVet(${v.id})">🗑️ Excluir</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function editVet(id) {
+        const vet = veterinarios.find(v => v.id == id);
+        if (!vet) return;
+
+        document.getElementById('vetId').value = vet.id;
+        document.getElementById('vetNome').value = vet.nome;
+        document.getElementById('vetCrmv').value = vet.crmv;
+        document.getElementById('vetEspec').value = vet.especialidade;
+        document.getElementById('vetTelefone').value = vet.telefone;
+
+        document.getElementById('vetForm').classList.add('active');
+    }
+
+    function deleteVet(id) {
+        if (confirm('Tem certeza que deseja excluir este veterinário?')) {
+            veterinarios = veterinarios.filter(v => v.id != id);
+            renderVets();
+        }
+    }
+
+    // ======================================================
+    // ================= CRUD CERTIFICAÇÕES =================
+    // ======================================================
+    function saveCert(e) {
+        e.preventDefault();
+        const idInput = document.getElementById('certId');
+        const id = idInput.value;
+        const cert = {
+            id: id ? parseInt(id) : nextId.certificacoes++,
+            vetId: document.getElementById('certVet').value,
+            nome: document.getElementById('certNome').value,
+            instituicao: document.getElementById('certInst').value,
+            data: document.getElementById('certData').value
+        };
+
+        if (id) {
+            const index = certificacoes.findIndex(c => c.id == id);
+            certificacoes[index] = cert;
+        } else {
+            certificacoes.push(cert);
+        }
+
+        renderCerts();
+        cancelForm('certForm');
+    }
+
+    function renderCerts() {
+        const tbody = document.getElementById('certsList');
+        if (certificacoes.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhuma certificação cadastrada</td></tr>';
+            return;
+        }
+        tbody.innerHTML = certificacoes.map(c => `
+            <tr>
+                <td>${c.id}</td>
+                <td>${c.vetId}</td>
+                <td>${c.nome}</td>
+                <td>${c.instituicao}</td>
+                <td>${c.data}</td>
+                <td class="action-buttons">
+                    <button class="btn btn-warning btn-sm" onclick="editCert(${c.id})">✏️ Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteCert(${c.id})">🗑️ Excluir</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function editCert(id) {
+        const cert = certificacoes.find(c => c.id == id);
+        if (!cert) return;
+
+        document.getElementById('certId').value = cert.id;
+        document.getElementById('certVet').value = cert.vetId;
+        document.getElementById('certNome').value = cert.nome;
+        document.getElementById('certInst').value = cert.instituicao;
+        document.getElementById('certData').value = cert.data;
+
+        document.getElementById('certForm').classList.add('active');
+    }
+
+    function deleteCert(id) {
+        if (confirm('Tem certeza que deseja excluir esta certificação?')) {
+            certificacoes = certificacoes.filter(c => c.id != id);
+            renderCerts();
+        }
+    }
+
+    // --- INICIALIZAÇÃO ---
+    // Renderiza todas as tabelas quando a página carrega
+    function renderAll() {
+        renderDonos();
+        renderAnimais();
+        renderConsultas();
+        renderTratamentos();
+        renderVets();
+        renderCerts();
+    }
+
+    renderAll();
+
+</script>
+</body>
+</html>

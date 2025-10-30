@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86cf361c-e088-429f-9f8d-71bb72083e6f" name="Changes" comment="inserção de métodos no RepositorioDeConsulta">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_10_2025_23_07_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_10_2025_23_07__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/cli/SistemaClinicaVet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/cli/SistemaClinicaVet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeConsultaSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeConsultaSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeTratamentoSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/RepositorioDeTratamentoSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/frontend/templates/animais.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/frontend/templates/certificacoes.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/frontend/templates/consulta.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/frontend/templates/dono.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/frontend/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/frontend/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/frontend/templates/tratamento.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/frontend/templates/veterinario.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/ConexaoMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ucb/dao/ConexaoMySQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

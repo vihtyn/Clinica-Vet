@@ -8,7 +8,7 @@ public class ConexaoMySQL implements ConexaoBD{
 
     private static final String URL = "jdbc:mysql://localhost:3306/clinica";
     private static final String USUARIO = "root";
-    private static final String SENHA = "senha bd";
+    private static final String SENHA = "Brasilsul123";
 
 
     @Override
